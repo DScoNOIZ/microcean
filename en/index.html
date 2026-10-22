@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MICROCEAN — One Ocean from a Billion Drops</title>
+<meta name="description" content="Microcean — a concept of a planetary self-assembling software ecosystem. The home page is a navigation hub: materials for readers of any level — from an introductory overview to the mathematical theory.">
+<meta name="theme-color" content="#0a1622">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MICROCEAN — One Ocean from a Billion Drops">
+<meta property="og:description" content="Microcean — a concept of a planetary self-assembling software ecosystem. The home page is a navigation hub: materials for readers of any level — from an introductory overview to the mathematical theory.">
+<meta property="og:site_name" content="MICROCEAN">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="../favicon.svg">
+<meta name="twitter:card" content="summary">
+</head>
+<body>
+
+<header class="site">
+  <div class="container">
+    <h1 class="logo-h"><a class="logo" href="index.html">MICROCEAN</a></h1>
+    <div class="logo-sub">One ocean from a billion drops</div>
+    <nav class="main-nav" aria-label="Page sections">
+      <a href="#about">About the concept</a>
+      <a href="#problem">Problem</a>
+      <a href="#how">How it is arranged</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#security">Security</a>
+      <a href="#lagoons">Lagoons</a>
+      <a href="#scenarios">Use cases</a>
+      <a href="#philosophy">Philosophy</a>
+      <a href="../index.html">RU</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+<section id="intro">
+  <p style="font-size:1.15rem; color:var(--text-strong);"><strong>Microcean</strong> is a concept of a planetary software ecosystem in which a program is neither written by hand nor assembled from large ready-made modules but — by the design of the concept — is assembled by a network automatically, from microscopic code fragments selected for a specific task.</p>
+  <p class="dim">This page is the starting point. It gives a brief and uniform description of the whole concept. Each section ends with links to the detailed materials of three levels of depth: for the general audience, for technical specialists, and for scientists. Choose your level — and move on.</p>
+</section>
+
+<section id="levels">
+  <h2 class="section-title"><span class="num">§</span>Three levels of exposition</h2>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="tagline-sm">Level 1</div>
+      <h3><a href="for-everyone.html">For Everyone</a></h3>
+      <p>An explanation in plain language: what it is, why it is needed and how it will change everyday work with software. No special background required. <a href="for-everyone.html">Read →</a></p>
+    </div>
+    <div class="card">
+      <div class="tagline-sm">Level 2</div>
+      <h3><a href="specialists.html">For Specialists</a></h3>
+      <p>The architecture of the system: assembly layers, the working process, the technologies employed and how they differ from today's development stack. <a href="specialists.html">Read →</a></p>
+    </div>
+    <div class="card">
+      <div class="tagline-sm">Level 3</div>
+      <h3><a href="scientists.html">For Scientists</a></h3>
+      <p>The formal model, the mathematical apparatus (theorems, proof statuses), numerical experiments with reproducible results, and an honest analysis of the limits of applicability. <a href="scientists.html">Read →</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <h2 class="section-title"><span class="num">1.</span>The essence of the concept</h2>
+  <p>Picture a single environment in which all the software of the planet lives: all the code, its whole history, all development practices. Today these things are scattered across separate tools — repositories, version-control systems, library marketplaces. In Microcean they are united into one interconnected system, figuratively called the <strong>Ocean of Code</strong>.</p>
+  <p>The user states a task in ordinary words — the way one explains to a handyman what needs fixing. Examples from the simplest to the professional ones:</p>
+  <ul class="list">
+    <li><em>"I want a game where a rocket flies around and collects stars"</em> — a schoolchild's wording;</li>
+    <li><em>"I need a program that reminds Mom to take her medicine and tells me if she forgot"</em> — caring for loved ones;</li>
+    <li><em>"Assemble a website for my flower workshop: a storefront, orders, card payments"</em> — small business;</li>
+    <li><em>"Assemble a warehouse-management system with receiving, inventory and reports"</em> — specialist level.</li>
+  </ul>
+  <p>The system itself finds suitable code fragments on the network, checks their compatibility, joins them, tests them and delivers a finished program. From millions of fragments one ocean is made; from a billion drops — one water.</p>
+  <blockquote>In the future a program is not written by hand and not assembled from huge modules — it is assembled by a network from microscopic fragments under a single high-level task. A rough analogy: the way a torrent file is assembled from pieces downloaded from thousands of computers at once.</blockquote>
+  <div class="level-links">
+    <span class="lbl">More on this:</span>
+    <a class="lv1" href="for-everyone.html#essence">Plain explanation</a>
+    <a href="specialists.html#architecture">Technical description</a>
+    <a class="lv3" href="scientists.html#model">Mathematical model</a>
+    <a href="philosophy.html#ocean">Philosophical meaning</a>
+  </div>
+</section>
+
+<section id="problem">
+  <h2 class="section-title"><span class="num">2.</span>What problem it solves</h2>
+  <p>Modern development is built on large ready-made packages: to use a few functions, a project pulls in a whole library — often together with hundreds of kilobytes of unused code, dependencies and potential vulnerabilities. Such a monoculture makes the industry fragile: an error or malicious code in one popular library affects millions of systems.</p>
+  <table class="data">
+    <thead><tr><th>Incident</th><th>Year</th><th>Consequence</th></tr></thead>
+    <tbody>
+      <tr><td>left-pad — removal of an 11-line package</td><td>2016</td><td>a significant part of the npm ecosystem stopped</td></tr>
+      <tr><td>SolarWinds — compromise of the update channel</td><td>2020</td><td>about 18 thousand organizations downloaded the compromised update; hundreds were actually breached</td></tr>
+      <tr><td>Log4Shell (CVE-2021-44228)</td><td>2021</td><td>a vulnerability in a single library — hundreds of millions of systems</td></tr>
+      <tr><td>xz utils — an implanted backdoor (CVE-2024-3094)</td><td>2024</td><td>a years-long targeted attack on open-source infrastructure</td></tr>
+    </tbody>
+  </table>
+  <p>Besides, today's tools were designed for a human working by hand, not for a machine. The artificial intelligence that increasingly takes part in development needs an environment of a different order — one where searching, checking and joining code happen by themselves.</p>
+  <p>And the third trouble — <strong>irresponsibility toward resources</strong>. Installing one program from source can quietly download many gigabytes of dependencies: without warning and without consent — and a report of what exactly was downloaded, as a rule, never reaches the ordinary user. Optimization happens only under the pressure of a crisis — when a program stops working even on the most powerful hardware, it is squeezed somehow, and that is counted an achievement. Correctness tests exist almost everywhere; performance and load tests are, with rare exceptions (Firefox, Chromium, where such checks run on practically every code change), a rarity. In the architecture of Microcean frugality is built in as the norm, not as a feat: by design, every assembly declares its resource footprint in advance and asks for consent, and efficiency is checked as strictly as correctness.</p>
+  <div class="level-links">
+    <span class="lbl">More on this:</span>
+    <a class="lv1" href="for-everyone.html#problem">Plain explanation</a>
+    <a href="specialists.html#comparison">Comparison with the modern stack</a>
+    <a href="philosophy.html#zero-excess">The economics of "zero excess"</a>
+  </div>
+</section>
+
+<section id="how">
+  <h2 class="section-title"><span class="num">3.</span>How the system is arranged</h2>
+  <p>The concept rests on seven architectural principles. Each of them, taken alone, rests on known science; the novelty lies in joining them into a single environment.</p>
+  <table class="data">
+    <thead><tr><th>Principle</th><th>Content</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Micro-fragments</strong></td><td>The basic unit of code is a small fragment (a function, an algorithm), not a large package. Large ready-made solutions are thereby preserved as "mature forms" — they can be used whole and copied; but the foundation remains the fragment.</td></tr>
+      <tr><td><strong>Swarm of executors</strong></td><td>The task is carried out not by one universal intelligence but by many narrow specialized modules: neural and algorithmic. Coordination is handled by the top control level.</td></tr>
+      <tr><td><strong>Evolutionary selection</strong></td><td>Assembly variants compete with each other; the best combinations are preserved and developed — by the same principles that operate in evolutionary biology and genetic algorithms.</td></tr>
+      <tr><td><strong>Peer-to-peer network</strong></td><td>Storing and exchanging fragments are distributed among the participants of the network — without a central server. Search is built on the proven DHT protocols, state synchronization on CRDT.</td></tr>
+      <tr><td><strong>Trust without blockchain</strong></td><td>The reputation of participants is confirmed by executable tests and lightweight consensus algorithms (PBFT, Raft) — without energy-hungry computation.</td></tr>
+      <tr><td><strong>Two modes of operation</strong></td><td>The open ocean — a global network of maximum power; a lagoon — a closed circuit of a company or a state. One protocol, different access policies.</td></tr>
+      <tr><td><strong>Resource responsibility</strong></td><td>A principle in sketch status: an assembly, by design, declares its resource footprint in advance (download volume, storage, loads) and asks for consent. The fragment's metadata include a measured performance profile; efficiency tests are equal in standing to correctness tests, and selection is meant to cut off wasteful combinations. Frugality is the norm, not a feat.</td></tr>
+    </tbody>
+  </table>
+  <div class="level-links">
+    <span class="lbl">More on this:</span>
+    <a class="lv1" href="for-everyone.html#how">How it works — simply</a>
+    <a href="specialists.html#architecture">Architecture: five layers</a>
+    <a class="lv3" href="scientists.html#model">Formal problem statement</a>
+  </div>
+</section>
+
+<section id="evidence">
+  <h2 class="section-title"><span class="num">4.</span>The evidence base</h2>
+  <p>Every key claim of the concept is backed by computations that anyone can repeat on their own — the source codes of the experiments are open. Key results:</p>
+  <ul class="list">
+    <li><strong>Enumeration is impossible, but the task is solvable.</strong> The number of assembly combinations in the model of the publication exceeds 10<sup>101</sup> — more than the atoms in the Universe. An evolutionary algorithm finds a correct assembly in roughly 20 thousand trials, without resorting to enumeration (30 successful outcomes out of 30 runs).</li>
+    <li><strong>The network scales.</strong> Finding the needed fragment in a network of a billion nodes takes on average 5–6 steps; propagating an update to one hundred thousand nodes — about 11 exchange cycles. Network size still affects speed, but slowly: the growth in the number of steps is close to logarithmic.</li>
+    <li><strong>"Zero excess" works.</strong> A size penalty shrinks the final assembly by a factor of 2.5 without loss of correctness.</li>
+    <li><strong>The limits are named honestly.</strong> Absolute minimality of a program is mathematically uncomputable; a universal optimizer does not exist (the No Free Lunch theorem); parallelism is limited by Amdahl's law. The system is positioned as a strong solution for the class of tasks with structure, not as a universal remedy.</li>
+  </ul>
+  <div class="level-links">
+    <span class="lbl">More on this:</span>
+    <a class="lv1" href="for-everyone.html#evidence">How we know it — simply</a>
+    <a href="specialists.html#stack">Technologies and their readiness status</a>
+    <a class="lv3" href="scientists.html">The full mathematical exposition</a>
+  </div>
+</section>
+
+<section id="security">
+  <h2 class="section-title"><span class="num">5.</span>Security</h2>
+  <p>The distributed architecture is conceived so as to remove the main causes of today's information-security incidents:</p>
+  <ol class="list">
+    <li><strong>No monoculture.</strong> The compromise of one fragment does not destroy the system: word of the threat spreads through the network, and participants adapt.</li>
+    <li><strong>No single point of failure.</strong> Like a torrent network, the Ocean keeps working even if part of the nodes goes down.</li>
+    <li><strong>Verification instead of trust.</strong> Every fragment is accompanied by executable tests; reputation is earned by a verifiable history.</li>
+  </ol>
+  <div class="level-links">
+    <span class="lbl">More on this:</span>
+    <a class="lv1" href="for-everyone.html#security">Why this is safer — simply</a>
+    <a class="lv3" href="scientists.html#trust">Consensus algorithms and Sybil protection</a>
+  </div>
+</section>
+
+<section id="lagoons">
+  <h2 class="section-title"><span class="num">6.</span>Lagoons: closed circuits</h2>
+  <p>The global reach of the system does not cancel the right to privacy. An organization can deploy a <strong>lagoon</strong> — a closed copy of the environment with its own fragments and its own history, designed so that nothing leaks outward. A lagoon is self-sufficient, yet without an inflow from outside its capabilities are modest — just as a local network yields to the global one in variety. Selective exchange is also possible — under the owner's rules.</p>
+  <p>A separate scenario is <strong>copying someone else's open ecosystem wholesale</strong>: if a public project (say, a store with open code) suits the organization, it can be moved inside its own circuit and refined for its tasks.</p>
+  <div class="level-links">
+    <span class="lbl">More on this:</span>
+    <a class="lv1" href="for-everyone.html#lagoons">Lagoons — in plain words</a>
+    <a href="philosophy.html#lagoons">Architectural consequences</a>
+  </div>
+</section>
+
+<section id="scenarios">
+  <h2 class="section-title"><span class="num">7.</span>Use-case scenarios</h2>
+  <table class="data">
+    <thead><tr><th>Who</th><th>Today</th><th>In Microcean</th></tr></thead>
+    <tbody>
+      <tr><td>A solo developer</td><td>Searches for libraries, assembles everything by hand, debugs</td><td>States the task — the environment assembles the application itself</td></tr>
+      <tr><td>A startup</td><td>Weeks to the first prototype</td><td>Minutes: the prototype is assembled from existing proven solutions</td></tr>
+      <tr><td>A company</td><td>Monolithic systems, leaks, vendor lock-in</td><td>Works in the open circuit with the benefit of exchange — or deploys its own lagoon</td></tr>
+      <tr><td>A state, the defense sector</td><td>Dependence on foreign software</td><td>A fully isolated lagoon: its own standards and its own change history</td></tr>
+      <tr><td>A newcomer to the profession</td><td>Memorizing syntax without seeing the connections</td><td>Learns inside the environment: sees the connections between solutions, descends to the needed depth</td></tr>
+    </tbody>
+  </table>
+  <div class="level-links">
+    <span class="lbl">More on this:</span>
+    <a class="lv1" href="for-everyone.html#scenarios">What it changes in life</a>
+  </div>
+</section>
+
+<section id="philosophy">
+  <h2 class="section-title"><span class="num">8.</span>Philosophy and legal standing</h2>
+  <p>Microcean describes not a single tool but a change of paradigm: the transition from "extracting" software to living in a shared environment. The concept is published openly and declared <strong>common heritage of all</strong>: a public record of the disclosed elements dated 2026-08-11 creates publicly accessible prior art — an obstacle to future patents on what is disclosed. CC0 1.0 Universal is declared as the licensing intent; non-waivable authorship under RF Civil Code Art. 1265/1267 is retained by the author, while reliable dating (DOI/OTS) is in preparation. The author publishes the idea and runs no infrastructure whatsoever: he is not an operator of the system, not a beneficiary and not a founder of any legal entity. Openness here matters more than monopoly: the idea remains free for all.</p>
+  <p>Every great step of technology — from writing to the internet — at first raised questions and later became a common support of humankind. Microcean likewise proposes changes, and so people and organizations will naturally have questions: how to preserve what was invested, how to protect one's own, how to live by new rules. These questions are fair, and the answers are provided for in the architecture — for now in the status of design principles: closed circuits — lagoons — are meant to give organizations confidentiality; open mechanisms — transparency and verifiability; common heritage of all — an open rather than monopolistic arrangement, under which the author does not claim to restrict others.</p>
+  <p>We invite all participants of the digital world — individual developers, companies, states — not into a fight against the old but into a realization of the new: to assess, discuss and criticize the concept. Benefit here does not compete with security and does not cancel anyone's interests: it arises from the fact that every participant gains access to the accumulated experience of all humankind while retaining the full right to their own space.</p>
+  <p>It is important to emphasize: this publication proposes <strong>a paradigm — a way of thinking and a direction of development</strong>, not a program of action against anything or anyone. The only call contained here is a call to creation: to study, discuss and develop it by lawful means for the benefit of all. Participation is voluntary; everyone is free to accept the idea wholly, in part or not at all — and any of these choices is respected.</p>
+  <div class="level-links">
+    <span class="lbl">More on this:</span>
+    <a href="philosophy.html">The philosophy section in full</a>
+    <a href="philosophy.html#name">The history of the MICROCEAN name</a>
+  </div>
+</section>
+
+<section id="sources">
+  <h2 class="section-title"><span class="num">9.</span>Origin of the materials</h2>
+  <p>The novelty of the concept has been checked by a search for worldwide analogues in open sources (more than 100 papers and projects): no complete analogues were found. The mathematical apparatus rests on classical results with known proofs; the numerical experiments are reproducible — the source code is published together with the site.</p>
+</section>
+
+</main>
+
+<footer class="site">
+  <div class="container">
+    <div class="slogan">"One ocean from a billion drops"</div>
+    <div>MICROCEAN · the concept is published openly · declared common heritage (CC0) · 2026</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('section').forEach(s => { s.style.opacity='0'; s.style.transform='translateY(14px)'; s.style.transition='opacity .6s ease, transform .6s ease'; io.observe(s); });
+</script>
+<style> section.visible { opacity: 1 !important; transform: none !important; } </style>
+</body>
+</html>

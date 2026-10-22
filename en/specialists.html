@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MICROCEAN — For Specialists</title>
+<meta name="description" content="The architecture of Microcean: assembly layers, the working process, the technology stack and a comparison with the modern development stack.">
+<meta name="theme-color" content="#0a1622">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MICROCEAN — For Specialists">
+<meta property="og:description" content="The architecture of Microcean: assembly layers, the working process, the technology stack and a comparison with the modern development stack.">
+<meta property="og:site_name" content="MICROCEAN">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="../favicon.svg">
+<meta name="twitter:card" content="summary">
+</head>
+<body>
+
+<header class="site">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">← To the home page</a> · Level 2 — For Specialists · <a href="../ru/specialistam.html">RU</a></nav>
+    <a class="logo" href="index.html">MICROCEAN</a>
+    <div class="logo-sub">One ocean from a billion drops</div>
+  </div>
+</header>
+
+<main class="container">
+
+<section id="architecture">
+  <h1 class="section-title">Architecture: five layers of assembly</h1>
+  <p>The system is divided into layers by the degree of "intelligence" of the solutions. Heavy universal models are brought in only where there is no way around them; the main work is done by lightweight specialized components.</p>
+  <table class="data">
+    <thead><tr><th>Layer</th><th>Responsibility</th><th>Mechanisms</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Coordination (top)</strong></td>
+        <td>Accepting a task in natural language; splitting it into sub-tasks; resolving conflicts between fragments; overall coordination of the assembly.</td>
+        <td>A high-level model; invoked pointwise, not for every operation.</td>
+      </tr>
+      <tr>
+        <td><strong>Swarm of micro-networks (middle)</strong></td>
+        <td>Verification of fragment contracts, generation of interfaces, fitness assessment.</td>
+        <td>Many small specialized networks; activation by task type (sparse MoE — "sparse mixture of experts": only the network fitting the task is active).</td>
+      </tr>
+      <tr>
+        <td><strong>Evolutionary selection</strong></td>
+        <td>Choosing combinations of fragments: mutation, crossover, selection by the fitness function.</td>
+        <td>GA (genetic algorithm) / GP (genetic programming) over subsets of fragments; fitness ("adaptedness") = error + weight + conflicts; Holland's schema theorem as the theoretical foundation.</td>
+      </tr>
+      <tr>
+        <td><strong>P2P infrastructure</strong></td>
+        <td>Search for fragments, propagation of updates, state synchronization without a central server.</td>
+        <td>Kademlia DHT (distributed hash table: a shared "address book" of the network without a main server) — lookup in O(log n); push-pull gossip (neighbors pass news along like rumors) — dissemination in O(log n); CRDT (data structures that converge to a common form on their own) — replica convergence; rarest-first — replication of rare fragments.</td>
+      </tr>
+      <tr>
+        <td><strong>Trust</strong></td>
+        <td>Consensus and reputation without energy-hungry computation.</td>
+        <td>PBFT (consensus for the case of lying participants, 3f+1) for the council of coordinators; Raft (consensus for honest participants, 2f+1) inside a trusted cluster; hashgraph aBFT as the DAG variant; reputation = executable tests + Sybil protection (protection against a crowd of fake identities, Douceur, 2002).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 id="workflow">The working cycle of an assembly</h3>
+  <ol class="list">
+    <li><strong>Task statement.</strong> The user or an agent formulates the requirement at a high level: "assemble a document search engine with a vector index".</li>
+    <li><strong>Decomposition.</strong> The planner splits the requirement into classes of sub-tasks: parsing, storage, search, network protocol, encryption.</li>
+    <li><strong>Search for candidates.</strong> DHT queries find fragments of each class: tokenizers, indexes, TLS wrappers, authenticated encryption (AEAD).</li>
+    <li><strong>Evolutionary matching.</strong> The genetic algorithm goes over combinations, rejects incompatible interfaces, develops viable variants.</li>
+    <li><strong>Verification by the swarm.</strong> The micro-networks check every fragment against the contracts; non-conforming ones are discarded.</li>
+    <li><strong>Conflict resolution.</strong> The top level settles disputes between fragments and repairs integrations.</li>
+    <li><strong>Final assembly and testing.</strong> A full run of the test suite on the assembled program.</li>
+    <li><strong>Return to the network.</strong> A successful assembly is published back as a fragment — the ecosystem grows.</li>
+  </ol>
+</section>
+
+<section id="stack">
+  <h2 class="section-title">Technology stack and maturity status</h2>
+  <table class="data">
+    <thead><tr><th>Task</th><th>Technologies / primitives</th><th>Status of the justification</th></tr></thead>
+    <tbody>
+      <tr><td>Search for fragments</td><td>Kademlia DHT, XOR metric (distance — the exclusive OR of identifiers), k=20 buckets</td><td>Proven: O(log n); simulation E5 confirms it</td></tr>
+      <tr><td>Propagation of updates</td><td>Push-pull gossip</td><td>Proven: Karp et al., 2000; simulation E6 agrees</td></tr>
+      <tr><td>State synchronization</td><td>CRDT (GCounter, GSet, ORSet)</td><td>Proven: eventual consistency; 10000/10000 monoid-axiom checks (E7)</td></tr>
+      <tr><td>Evolutionary matching</td><td>GA: tournament selection, uniform crossover, elitism</td><td>Plausible on model landscapes; the boundaries have been explored (E2–E4)</td></tr>
+      <tr><td>Synthesis from a specification</td><td>CEGIS (counterexample-guided synthesis) / SyGuS (syntax-guided synthesis), a finite grammar, an SMT solver — optional</td><td>The framework is proven; the toy experiment E9 succeeds</td></tr>
+      <tr><td>Compactness ("zero excess")</td><td>An MDL penalty (minimum description length) in the fitness function</td><td>Works on the model (E10): −2.5× length with correctness preserved; absolute minimality is uncomputable</td></tr>    </tbody>
+  </table>
+
+  <h3 id="comparison">Comparison with the modern stack</h3>
+  <table class="data">
+    <thead><tr><th>Aspect</th><th>Today (npm / crates.io / pip)</th><th>Microcean</th></tr></thead>
+    <tbody>
+      <tr><td>The unit of reuse</td><td>A large package; 1–60 % of its content is used (per available estimates; the range requires verification)</td><td>A micro-fragment; exactly what is needed is taken</td></tr>
+      <tr><td>Dependencies</td><td>Explicit, versioned; conflicts are real, but lock-files and resolvers remove them only partially</td><td>Contract-based, through interfaces; a registry on CRDT</td></tr>
+      <tr><td>Verification</td><td>The package's tests (if any), trust in the maintainer</td><td>Contract checking by a CEGIS loop at every step</td></tr>
+      <tr><td>Updates</td><td>Semi-manual (started by a human, often through bots and lock-files); semver conventions often do not save compatibility in practice</td><td>Gossip dissemination, CRDT merging without a coordinator</td></tr>
+      <tr><td>Supply chain</td><td>The main vector of attacks (SolarWinds, xz)</td><td>No monoculture: compromise is local, adaptation is network-wide</td></tr>
+      <tr><td>Ready-made large solutions</td><td>The primary building material</td><td>Preserved as mature forms; they can be used whole or an ecosystem can be forked into one's own circuit</td></tr>
+      <tr><td>Resources (traffic, disk, memory)</td><td>Often without a complete resource footprint declared in advance: an installation can drag hundreds of megabytes and gigabytes of dependencies — progress is visible, but the final footprint is not announced beforehand</td><td>By design (a sketch principle from the concept, requiring verification): the full resource footprint is declared before installation and requires consent; efficiency tests are equal in standing to correctness tests</td></tr>
+      <tr><td>Optimization</td><td>Most often — a situational act under pressure from hardware or competition (the author's characterization of the situation, not a systemic norm)</td><td>By design — a building rule of selection: the cost member of the fitness function cuts off wasteful assemblies (E10 on the model: −2.5× length at equal correctness)</td></tr>    </tbody>
+  </table>
+
+  <h3 id="prototype">The road to a prototype</h3>
+  <p>The first practical embryo already exists in miniature: the needed functions are manually "pulled" out of modules instead of installing a package whole (a "graph of skills" — skill-graph — and the resource-frugal practice of the publication's author). To automate such extraction is the goal of the project: make it automatic and decentralized — and we get a working minimal prototype of Microcean. The stage estimates are the author's rough guess, not a promise of deadlines: the fragment registry and search — weeks of work; evolutionary assembly for one language — the next quarter; the verifier swarm — a parallel branch.</p>
+</section>
+
+<section id="next">
+  <div class="level-links">
+    <span class="lbl">Other levels of exposition:</span>
+    <a href="index.html">← To the home page</a>
+    <a href="for-everyone.html">For Everyone (plain explanation)</a>
+    <a class="lv3" href="scientists.html">For Scientists (mathematics, experiments)</a>
+    <a href="philosophy.html">The philosophy of the concept</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="site">
+  <div class="container">
+    <div class="slogan">"One ocean from a billion drops"</div>
+    <div>MICROCEAN · the concept is published openly · declared common heritage (CC0) · 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>

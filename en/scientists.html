@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MICROCEAN — For Scientists</title>
+<meta name="description" content="The formal model of Microcean, the mathematical apparatus, the numerical experiments E1–E10 with reproducible results and an honest analysis of the limits of applicability.">
+<meta name="theme-color" content="#0a1622">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MICROCEAN — For Scientists">
+<meta property="og:description" content="The formal model of Microcean, the mathematical apparatus, the numerical experiments E1–E10 with reproducible results and an honest analysis of the limits of applicability.">
+<meta property="og:site_name" content="MICROCEAN">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="../favicon.svg">
+<meta name="twitter:card" content="summary">
+</head>
+<body>
+
+<header class="site">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">← To the home page</a> · Level 3 — For Scientists · <a href="../ru/uchenym.html">RU</a></nav>
+    <a class="logo" href="index.html">MICROCEAN</a>
+    <div class="logo-sub">One ocean from a billion drops</div>
+  </div>
+</header>
+
+<main class="container">
+
+<section id="model">
+  <h1 class="section-title">The formal model of the assembly task</h1>
+  <p><strong>Definition (the fragment space).</strong> ℱ = {g₁, …, g<sub>N_F</sub>} — a finite set of micro-code fragments. Each fragment g = (code(g), meta(g)), where code(g) is executable source code over an alphabet Σ; meta(g) is the interface (signature), pre-/post-conditions, a hash, reputation, semantic tags, as well as the <strong>measured performance profile</strong> (benchmarks of time, memory and traffic — part of the fragment's passport).</p>
+  <p><strong>Definition (assembly).</strong> An assembly is a subset S ⊆ ℱ together with a composition operation ∘ that glues the fragments into a program p ∈ 𝒫.</p>
+  <p><strong>Problem statement.</strong> Given a task T with the specification Spec(T). It is required to find:</p>
+  <div class="formula">argmin<sub>S ⊆ ℱ</sub>&nbsp;&nbsp;Φ(S) = α·Err(S, Spec(T)) + β·cost(p(S)) + γ·incomp(S)</div>
+  <p>where Err is the mismatch to the specification (failed tests), cost is the complete resource footprint of the program: size, running time, memory, network traffic, energy (an implementation of the principles of "zero excess" and resource responsibility), incomp — conflicts of interfaces; α ≫ β, γ by default. Constraints: typability of the assembly, pairwise compatibility of interfaces, a budget cost(p) ≤ B. The presence of cost in the objective function means that <strong>evolutionary selection cuts off wasteful combinations automatically</strong>: optimization is built into the mechanism of selection, rather than being a separate "when it pinches" stage.</p>
+  <p><strong>A remark on complexity.</strong> The search space is 2<sup>N_F</sup> subsets. At N_F ~ 10⁶ an exact solution by enumeration is impossible.</p>
+</section>
+
+<section id="evidence">
+  <h2 class="section-title">Combinatorial estimate (E1)</h2>
+  <p>The number of combinations C(N_F, k) grows explosively:</p>
+  <table class="data">
+    <thead><tr><th>N_F \ k</th><th>10</th><th>20</th></tr></thead>
+    <tbody>
+      <tr><td>10⁴</td><td>10<sup>33.4</sup></td><td>10<sup>61.6</sup></td></tr>
+      <tr><td><strong>10⁶</strong></td><td>10<sup>53.4</sup></td><td><strong>10<sup>101.6</sup></strong></td></tr>
+    </tbody>
+  </table>
+  <p>At N_F = 10⁶, k = 20 we get ≈10¹⁰¹ combinations — more than the number of atoms in the Universe (~10⁸⁰). Full enumeration is impossible. Control against exact values: C(100,3) = 161 700; C(1000,10) = 2.63·10²³.</p>
+</section>
+
+<section id="evolution">
+  <h2 class="section-title">The evolutionary engine</h2>
+  <h3>Theoretical anchors</h3>
+  <ul class="list">
+    <li><strong>Holland's schema theorem [proven].</strong> Short, low-order schemas with above-average fitness grow exponentially in number: E[m(H,t+1)] ≥ m(H,t)·(f̂(H,t)/f̄(t))·[1 − p_c·d(H)/(L−1) − o(H)·p_m]. Caveat: the inequality is about an expectation, not an equation of dynamics.</li>
+    <li><strong>The Price equation [proven].</strong> w̄·Δz̄ = Cov(wᵢ, zᵢ) + E(wᵢ·Δzᵢ) — the fundamental decomposition of evolutionary dynamics.</li>
+    <li><strong>Building Block Hypothesis [hypothesis]</strong> (Goldberg, 1989). A working assumption of low epistasis between well-isolated fragments; counterexamples are known (deceptive functions).</li>
+    <li><strong>Sizing per Goldberg–Deb–Clark [proven in the accepted noise model].</strong> N_s = 2cκσ²_M/d², where c is the square of the one-sided normal deviate: for a tolerable decision error α = 0.05 we have z = 1.645, c = z² ≈ 2.71. The empirical success threshold N* = 50–100 against the theoretical estimate 173 (at σ_M/d = 4): the theory leaves a margin, the empirics are more modest — the discrepancy is explainable by elitism on true fitness.</li>
+  </ul>
+  <h3>Numerical results (seed = 42, reproducible)</h3>
+  <p><strong>E2 — GA convergence</strong> (L=20, M=10): success 30/30 at N ∈ {50, 100, 200}; the first hit of the optimum in generation 38.7 / 25.3 / 20.6 (mean). The budget ≈ N·G = 2·10⁴ evaluations against 10¹⁰¹ of enumeration — the GA examines a fraction ≈10⁻⁹⁷ of the space and does not work by enumeration.</p>
+  <figure style="margin:18px 0;">
+    <img src="../assets/charts/ga.svg" alt="E2: convergence of the genetic algorithm" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
+    <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Fig. 1. The larger the population, the earlier the solution is found; all 30 runs succeed.</figcaption>
+  </figure>
+  <p><strong>E3 — epistasis:</strong> at a fraction of pairwise interactions λ ≤ 0.3 the correctness is 1.0; at λ = 0.7 it falls to 0.325 (0/30 reach the optimum). This justifies the requirement of "clean interfaces" between fragments.</p>
+  <figure style="margin:18px 0;">
+    <img src="../assets/charts/epistasis.svg" alt="E3: the effect of fragment coupling on correctness" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
+    <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Fig. 2. The method works while the fragments are weakly coupled — hence the requirement of clean interfaces.</figcaption>
+  </figure>
+  <p><strong>E4 — sizing vs empirics:</strong> at σ_M/d = 4 the theoretical GDC N_s = 173 (κ=2, c=z²≈2.71), the empirical threshold N* = 50–100; the theory is conservative by a factor of 1.7–3.5 (elitism on true fitness).</p>
+</section>
+
+<section id="swarm">
+  <h2 class="section-title">The swarm of micro-networks: ensemble bounds</h2>
+  <p>The bias–variance decomposition [Geman et al., 1992]: E[(y−f̂(x))²] = Bias² + Var + σ². For an ensemble of M models with pairwise error correlation ρ: Var → ρσ² as M→∞ — the diversity of the experts (low ρ) plays the key role. Specialization via sparse MoE [Shazeer et al., 2017, arXiv:1701.06538] — a "sparse mixture of experts".</p>
+  <p><strong>The bound [plausible]:</strong> there is no theorem of universal superiority of the swarm (NFL); the gain is achieved in latency, fault tolerance and transfer-efficiency; the comparison "swarm vs one big model" is an empirical question.</p>
+</section>
+
+<section id="cegis">
+  <h2 class="section-title">Synthesis from a specification: CEGIS</h2>
+  <p>The SyGuS framework [Alur et al., 2013]: find f ∈ ℋ such that ∃f ∀x ∈ 𝒟: φ(x, f(x)). The "synthesizer–verifier" loop: soundness is proven; termination at a finite grammar is proven; completeness in the general case is unattainable.</p>
+  <p><strong>E9 (toy):</strong> max(x,y) synthesized as ite((x&lt;y), y, x) in 1 CEGIS iteration (820 candidates, 0.05 s); post-verification on a grid of 1600 points — 0 discrepancies. The expressiveness boundary: without a comparison operator the task is inexpressible in the grammar {+, *, ite} — an honest boundary of the method.</p>
+</section>
+
+<section id="p2p">
+  <h2 class="section-title">The P2P layer: proven bounds</h2>
+  <ul class="list">
+    <li><strong>Kademlia [proven], O(log n).</strong> E5 (n=10⁹, k=20, 1000 lookups): mean 5.42 ± 0.83 hops, maximum 8 (the upper bound ceil log₂ n = 30).</li>
+    <li><strong>Gossip push-pull [proven], O(log n)</strong> [Karp et al., FOCS 2000]. E6: n=10⁵ → 11.37 ± 0.48 rounds at log₃ n = 10.48 (ratio 1.08 and shrinking as n grows).</li>
+    <li><strong>CRDT [proven]</strong> [Shapiro et al., 2011]. A join-semilattice = a commutative idempotent monoid → eventual consistency. E7: 10000/10000 checks of commutativity/associativity/idempotence for GCounter, GSet, ORSet; 1000/1000 replica-convergence scenarios.</li>
+    <li><strong>Amdahl [proven].</strong> E8: p=0.99 → S(1024)=91.2, the limit 100; the sequential part (coordination, verification) sets the ceiling of the speedup of distributed assembly.</li>
+  </ul>
+  <figure style="margin:18px 0;">
+    <img src="../assets/charts/kademlia.svg" alt="E5: Kademlia hops as the network grows" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
+    <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Fig. 3. Finding a fragment: from a thousand to a billion nodes — the growth is only about 3 steps.</figcaption>
+  </figure>
+  <figure style="margin:18px 0;">
+    <img src="../assets/charts/gossip.svg" alt="E6: rounds of update propagation" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
+    <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Fig. 4. The wave of an update reaches all the nodes in a logarithmic number of rounds.</figcaption>
+  </figure>
+  <figure style="margin:18px 0;">
+    <img src="../assets/charts/amdahl.svg" alt="E8: Amdahl curves for different shares of parallelism" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
+    <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Fig. 5. The honest ceiling of parallelism: the sequential share of coordination limits the speedup.</figcaption>
+  </figure>
+</section>
+
+<section id="trust">
+  <h2 class="section-title">Trust without blockchain</h2>
+  <table class="data">
+    <thead><tr><th>Mechanism</th><th>Guarantee</th><th>Status</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>PBFT</td><td>n ≥ 3f+1 (Byzantine faults)</td><td>Proven</td><td>Castro &amp; Liskov, 1999/2002</td></tr>
+      <tr><td>Raft</td><td>n ≥ 2f+1 (crash-only)</td><td>Proven</td><td>Ongaro &amp; Ousterhout, 2014</td></tr>
+      <tr><td>Hashgraph aBFT</td><td>n ≥ 3f+1, asynchronous BFT</td><td>A protocol property</td><td>Baird, 2016</td></tr>
+      <tr><td>Sybil protection</td><td>Impossible without external identification</td><td>Proven (a lower bound)</td><td>Douceur, 2002</td></tr>
+      <tr><td>Reputation</td><td>Executable tests + resource testing</td><td>Engineering practice</td><td>Mohaisen &amp; Kim, 2013</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="mdl">
+  <h2 class="section-title">"Zero excess": MDL and Kolmogorov complexity</h2>
+  <p>The MDL principle [Rissanen, 1978; Grünwald, 2007]: L(D) = min_H [L(H) + L(D|H)] — a formalization of Occam's razor. The Kolmogorov complexity K(x) is <strong>uncomputable</strong>; any practical minimization is an approximation.</p>
+  <p><strong>E10 (a):</strong> duplicate dead fragments have almost no effect on the zlib size (159 → 265 with k: 0 → 200); unique dead fragments grow both the raw and the zlib metric. <strong>(b):</strong> a GA with an MDL penalty shortens the assembly by a factor of 2.5 (150.9 → 60.9) while preserving correctness 1.0. <strong>(c):</strong> the Pearson correlation of the zlib length with correctness ≈ −0.04 — compression captures the structure of the content, not the "neededness"; the boundary of the MDL heuristic is fixed.</p>
+  <figure style="margin:18px 0;">
+    <img src="../assets/charts/mdl.svg" alt="E10: the assembly length with and without the MDL penalty" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
+    <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Fig. 6. The "zero excess" principle: an assembly 2.5 times shorter with no loss of correctness.</figcaption>
+  </figure>
+</section>
+
+<section id="limits">
+  <h2 class="section-title">Honest limits</h2>
+  <table class="data">
+    <thead><tr><th>Barrier</th><th>Result</th><th>Status</th><th>Consequence for the concept</th></tr></thead>
+    <tbody>
+      <tr><td>K is uncomputable</td><td>Kolmogorov; Li &amp; Vitányi, 2008</td><td>Impossible</td><td>"Zero excess" is a heuristic (MDL), not a mathematical optimum</td></tr>
+      <tr><td>No Free Lunch</td><td>Wolpert &amp; Macready, 1997</td><td>Impossible</td><td>There is no ideal assembler for all tasks; the strength is on the class of tasks with structure</td></tr>
+      <tr><td>Amdahl's law</td><td>Amdahl, 1967</td><td>Proven</td><td>Parallelism is limited by the sequential share of coordination</td></tr>
+      <tr><td>Halting / Rice</td><td>Turing, 1936; Rice, 1953</td><td>Impossible</td><td>Absolute error-freeness is unattainable; what is attainable are tests on finite sets and verification of bounded properties</td></tr>
+    </tbody>
+  </table>
+  <p>Additional caveats: the schema theorem ≠ a guarantee of GA convergence; hashgraph aBFT — a protocol property under its assumptions; the Tangle — probabilistic consensus; the quantum perspectives of the concept lie outside the current mathematical base and are marked as a direction.</p>
+</section>
+
+<section id="sources">
+  <h2 class="section-title">Verifiability</h2>
+  <p>All 10 series of experiments were run on Python + numpy with a fixed initial state of the random number generator; <strong>the source codes of all the experiments are open</strong> — in the directory <a href="../research/experiments/" style="color:var(--accent2);">research/experiments/</a> of this repository, the full report is in <a href="../research/report.md" style="color:var(--accent2);">research/report.md</a>. Every run is reproducible: anyone may repeat the computations and get the same numbers. The full list of sources — 47 entries with the authors, the year and a link to the primary source — is given in the scientific publication of the concept; below its external part is reproduced (entries 1–40; entries 41–47 are internal artifacts of the Research Institute, they are recorded in the publication itself).</p>
+  <ol class="list">
+    <li>Holland J.H., 1975. <em>Adaptation in Natural and Artificial Systems.</em> Univ. of Michigan Press. <a href="https://en.wikipedia.org/wiki/Holland%27s_schema_theorem">en.wikipedia.org/wiki/Holland%27s_schema_theorem</a></li>
+    <li>Goldberg D.E., 1989. <em>Genetic Algorithms in Search, Optimization and Machine Learning.</em> Addison-Wesley. (BBH)</li>
+    <li><strong>Goldberg D.E., Deb K., Clark J.H., 1992. <em>Genetic Algorithms, Noise, and the Sizing of Populations.</em> Complex Systems 6:333–362.</strong> <a href="https://content.wolfram.com/sites/13/2018/02/06-4-3.pdf">content.wolfram.com/sites/13/2018/02/06-4-3.pdf</a> ; <a href="https://www.egr.msu.edu/~kdeb/papers/k99003.pdf">egr.msu.edu/~kdeb/papers/k99003.pdf</a> (eq. (14))</li>
+    <li>Price G.R., 1970. <em>Selection and covariance.</em> Nature 227:520–521. <a href="https://en.wikipedia.org/wiki/Price_equation">en.wikipedia.org/wiki/Price_equation</a> ; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3354028/">pmc.ncbi.nlm.nih.gov/articles/PMC3354028</a></li>
+    <li>White D.R., 2018. <em>An overview of schema theory.</em> GJM. <a href="https://gradmath.org/wp-content/uploads/2020/10/White-GJM-2018.pdf">gradmath.org/…/White-GJM-2018.pdf</a></li>
+    <li>Langdon W.B., 1998. <em>Genetic Programming and Data Structures.</em> Springer.</li>
+    <li>Eiben A.E., Smith J.E., 2003/2015. <em>Introduction to Evolutionary Computing.</em> Springer.</li>
+    <li>Wolpert D.H., Macready W.G., 1997. <em>No Free Lunch Theorems for Optimization.</em> IEEE TEC 1(1):67–82. <a href="https://en.wikipedia.org/wiki/No_free_lunch_theorem">en.wikipedia.org/wiki/No_free_lunch_theorem</a> ; <a href="http://no-free-lunch.org">no-free-lunch.org</a> ; <a href="https://ieeexplore.ieee.org/document/585893">ieeexplore.ieee.org/document/585893</a></li>
+    <li>Amdahl G., 1967. <em>Validity of the Single Processor Approach…</em> AFIPS. <a href="https://www.geeksforgeeks.org/computer-organization-architecture/computer-organization-amdahls-law-and-its-proof">geeksforgeeks.org/…/amdahls-law-and-its-proof</a> ; <a href="https://web.engr.oregonstate.edu/~mjb/cs575/Handouts/speedups.and.amdahls.law.1pp.pdf">web.engr.oregonstate.edu/…/speedups.and.amdahls.law.1pp.pdf</a></li>
+    <li>Gustafson J., 1988. <em>Reevaluating Amdahl's Law.</em> CACM.</li>
+    <li>Turing A., 1936. <em>On Computable Numbers…</em> Proc. LMS. <a href="https://en.wikipedia.org/wiki/Halting_problem">en.wikipedia.org/wiki/Halting_problem</a> ; <a href="https://tonia.ai/undecidability.html">tonia.ai/undecidability.html</a></li>
+    <li>Rice H.G., 1953. <em>Classes of Recursively Enumerable Sets…</em> Trans. AMS. <a href="https://en.wikipedia.org/wiki/Halting_problem">en.wikipedia.org/wiki/Halting_problem</a> ; <a href="https://tonia.ai/undecidability.html">tonia.ai/undecidability.html</a></li>
+    <li>arXiv:2604.16477 (2026). <em>A Constructive Proof of Rice's Theorem…</em> <a href="https://arxiv.org/html/2604.16477v1">arxiv.org/html/2604.16477v1</a></li>
+    <li>Alur R. et al., 2013. <em>Syntax-Guided Synthesis (SyGuS).</em> FMCAD. <a href="https://www.semanticscholar.org/paper/Syntax-guided-synthesis-Alur-Bod%C3%ADk/f7ba81057c8ec4f1c039027232034143a5afe6bf">semanticscholar.org/paper/Syntax-guided-synthesis-Alur-Bod%C3%ADk</a></li>
+    <li>Solar-Lezama A., 2013. <em>Program Sketching.</em> STTT 15(5-6):475–495. <a href="https://homepages.dcc.ufmg.br/~hbarbosa/papers/cegist-journal.pdf">homepages.dcc.ufmg.br/…/cegist-journal.pdf</a> ; <a href="https://www.cs.ox.ac.uk/people/alessandro.abate/publications/bcADKKP18.pdf">cs.ox.ac.uk/…/bcADKKP18.pdf</a></li>
+    <li>CEGIS materials: <a href="https://pages.cs.wisc.edu/~qhu28/homework/assignment_cegis.html">pages.cs.wisc.edu/…/assignment_cegis.html</a> ; <a href="https://remy.wang/blog/cegis.html">remy.wang/blog/cegis.html</a> ; <a href="https://www.emergentmind.com/topics/counterexample-guided-inductive-synthesis-cegis">emergentmind.com/topics/counterexample-guided-inductive-synthesis-cegis</a></li>
+    <li>Maymounkov P., Mazières D., 2002. <em>Kademlia: A Peer-to-peer Information System Based on the XOR Metric.</em> IPTPS. <a href="https://www.ic.unicamp.br/~bit/ensino/mo809_1s13/papers/P2P/Kademlia-%20A%20Peer-to-Peer%20Information%20System%20Based%20on%20the%20XOR%20Metric%20.pdf">ic.unicamp.br/…/Kademlia-XOR-Metric-.pdf</a> ; <a href="https://en.wikipedia.org/wiki/Kademlia">en.wikipedia.org/wiki/Kademlia</a></li>
+    <li>Karp R. et al., 2000. <em>Randomized Rumor Spreading.</em> FOCS 2000. <a href="http://www.csun.edu/~jeffw/Semesters/2006Spring/COMP529/References/17.1/randomized.pdf">csun.edu/…/randomized.pdf</a></li>
+    <li>Haeupler B., 2015. <em>Simple, Fast and Deterministic Gossip…</em> JACM/ACM. <a href="https://disco.ethz.ch/courses/fs14/seminar/paper/Klaus/1.pdf">disco.ethz.ch/…/1.pdf</a></li>
+    <li>Cohen B., 2003. <em>Incentives Build Robustness in BitTorrent.</em> IPTPS. <a href="https://www.cs.princeton.edu/courses/archive/fall17/cos561/papers/BitTorrent03.pdf">cs.princeton.edu/…/BitTorrent03.pdf</a></li>
+    <li>Legout A. et al., 2006. <em>Rarest First and Choke Algorithms Are Enough.</em> ACM SIGCOMM. <a href="https://www.eurecom.fr/en/publication/1932/download/ce-legoar-060213.pdf">eurecom.fr/en/publication/1932</a></li>
+    <li>Shapiro M. et al., 2011. <em>A Comprehensive Study of Convergent and Commutative Replicated Data Types.</em> INRIA RR-7506 / SSS 2011. <a href="https://dsf.berkeley.edu/cs286/papers/crdt-tr2011.pdf">dsf.berkeley.edu/cs286/papers/crdt-tr2011.pdf</a> ; <a href="https://asc.di.fct.unl.pt/~nmp/pubs/sss-2011.pdf">asc.di.fct.unl.pt/~nmp/pubs/sss-2011.pdf</a> ; <a href="https://crdt.tech">crdt.tech</a></li>
+    <li>Castro M., Liskov B., 1999/2002. <em>Practical Byzantine Fault Tolerance.</em> OSDI'99 / ACM TOCS. <a href="https://users.cs.utah.edu/~stutsman/cs6963/public/pbft.pdf">users.cs.utah.edu/…/pbft.pdf</a></li>
+    <li>Ongaro D., Ousterhout J., 2014. <em>In Search of an Understandable Consensus Algorithm (Raft).</em> USENIX ATC. <a href="https://raft.github.io/raft.pdf">raft.github.io/raft.pdf</a></li>
+    <li>Baird L., 2016. <em>The Swirlds Hashgraph Consensus Algorithm.</em> <a href="https://en.wikipedia.org/wiki/Hedera_(distributed_ledger)">en.wikipedia.org/wiki/Hedera_(distributed_ledger)</a> ; <a href="https://docs.hedera.com/learn/core-concepts/hashgraph">docs.hedera.com/learn/core-concepts/hashgraph</a></li>
+    <li>Popov S., 2017/2022. <em>The Tangle.</em> IOTA whitepaper. <a href="https://arxiv.org/pdf/2209.04959">arxiv.org/pdf/2209.04959</a> ; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12157984">pmc.ncbi.nlm.nih.gov/articles/PMC12157984</a></li>
+    <li><strong>Douceur J., 2002. <em>The Sybil Attack.</em> IPTPS.</strong> <a href="https://www.microsoft.com/en-us/research/publication/the-sybil-attack/">microsoft.com/…/the-sybil-attack</a> (corrected R3)</li>
+    <li>Mohaisen A., Kim J., 2013. <em>The Sybil Attacks and Defenses: A Survey.</em> <a href="https://www.verisign.com/assets/labs/scr13.pdf">verisign.com/assets/labs/scr13.pdf</a></li>
+    <li>Hoffman K. et al., 2009. <em>A Survey of Attack and Defense Techniques for Reputation Systems.</em> <a href="https://cnitarot.github.io/papers/p2p-reputation-survey.pdf">cnitarot.github.io/papers/p2p-reputation-survey.pdf</a></li>
+    <li>Geman S. et al., 1992. <em>Neural Networks and the Bias/Variance Dilemma.</em> Neural Computation 4(1):1–58. <a href="http://doursat.free.fr/docs/Geman_Bienenstock_Doursat_1992_bv_NeurComp.pdf">doursat.free.fr/…/Geman_Bienenstock_Doursat_1992_bv_NeurComp.pdf</a></li>
+    <li>Dietterich T., 2000. <em>Ensemble Methods in Machine Learning.</em> MCS. (cited in <a href="https://arxiv.org/pdf/2301.03962">arxiv.org/pdf/2301.03962</a>)</li>
+    <li>Ueda N., Nakano R., 1996. <em>Generalization Error of Ensemble Estimators.</em> (discussed in <a href="https://arxiv.org/pdf/2301.03962">arxiv.org/pdf/2301.03962</a>)</li>
+    <li>Domingos P., 2000. <em>A Unified Bias-Variance Decomposition.</em> ICML. <a href="https://homes.cs.washington.edu/~pedrod/bvd.pdf">homes.cs.washington.edu/~pedrod/bvd.pdf</a></li>
+    <li>Jacobs R. et al., 1991. <em>Adaptive Mixtures of Local Experts.</em> Neural Computation 3(1):79–87.</li>
+    <li>Shazeer N. et al., 2017. <em>Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer.</em> arXiv:1701.06538.</li>
+    <li>Rissanen J., 1978. <em>Modeling by Shortest Data Description.</em> Automatica 14:465–471. <a href="http://www.modelselection.org/mdl">modelselection.org/mdl</a></li>
+    <li>Kolmogorov A.N., 1963/1968. <em>On Tables of Random Numbers / Three Approaches…</em> (see Li &amp; Vitányi)</li>
+    <li><strong>Li M., Vitányi P., 2008. <em>An Introduction to Kolmogorov Complexity and Its Applications.</em> 3rd ed., Springer.</strong> (corrected R3: proper authorship)</li>
+    <li>Grünwald P., 2007. <em>The Minimum Description Length Principle.</em> MIT Press. <a href="https://homepages.cwi.nl/~pdg/ftp/mdlintro.pdf">homepages.cwi.nl/~pdg/ftp/mdlintro.pdf</a></li>
+    <li>Statistics How To. <em>Kolmogorov Complexity &amp; Minimum Description Length.</em> <a href="https://www.statisticshowto.com/minimum-description-length-kolmogorov-complexity">statisticshowto.com/minimum-description-length-kolmogorov-complexity</a></li>
+  </ol>
+  <div class="level-links">
+    <span class="lbl">Other levels of exposition:</span>
+    <a href="index.html">← To the home page</a>
+    <a href="for-everyone.html">For Everyone</a>
+    <a href="specialists.html">For Specialists</a>
+    <a href="philosophy.html">The philosophy of the concept</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="site">
+  <div class="container">
+    <div class="slogan">"One ocean from a billion drops"</div>
+    <div>MICROCEAN · the concept is published openly · declared common heritage (CC0) · 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
