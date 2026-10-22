@@ -42,4 +42,16 @@ Link field: path to detail file in this directory, or `-` if none.
 - CONSOLIDATION — master accountability ledger — **COMPLETE** (OTCHETY/FACTCHECK-LEDGER.md)
 - STYLE — typography/layout consistency pass — **COMPLETE** (style_wave3.md; GATES-verified)
 - GATES — final quality gates before convergence — **COMPLETE** (verdict ACCEPT; FACTCHECK-LEDGER.md §6)
-- CONTINUOUS — regression watch after convergence — RUNNING
+- CONTINUOUS — regression watch after convergence — RUNNING (wave4 EN mirror shipped + gated)
+
+## Outstanding improvements queue (post-convergence)
+
+- Domain pass — canonical URLs + remaining sitemap host work once a domain exists
+  (sentinel EMPTY-PENDING-DOMAIN still kept in repo)
+- DOI/OTS dating — reliable long-term dating of the disclosed elements (site pages
+  currently state "DOI/OTS in preparation", no DOI identifier on site by design)
+- TM-registry — wider trademark-check of the MICROCEAN name beyond the recorded
+  MICROCEAN® (water purification, 1979) prior mark
+- EN mirror wiki note — flip wikis/main/projects/microcean-site.md status
+  in-progress → shipped (wiki commit 2e516bd registered the page)
+- EN pages in sitemap — add en/*.html to sitemap.xml once the domain exists
