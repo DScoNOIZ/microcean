@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MICROCEAN — Для учёных</title>
+<meta name="description" content="Формальная модель Microcean, математический аппарат, численные эксперименты E1–E10 с воспроизводимыми результатами и честный анализ границ применимости.">
+<meta name="theme-color" content="#0a1622">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="container">
+    <div class="breadcrumb"><a href="../index.html">← На главную</a> · Уровень 3 — Для учёных</div>
+    <a class="logo" href="../index.html">MICROCEAN</a>
+    <div class="logo-sub">Океан кода из миллиарда капель</div>
+  </div>
+</header>
+
+<div class="container">
+
+<section id="model">
+  <h2 class="section-title">Формальная модель задачи сборки</h2>
+  <p><strong>Определение (пространство фрагментов).</strong> ℱ = {g₁, …, g<sub>N_F</sub>} — конечное множество микро-фрагментов кода. Каждый фрагмент g = (code(g), meta(g)), где code(g) — исполняемый исходный код над алфавитом Σ; meta(g) — интерфейс (сигнатура), пред-/постусловия, хеш, репутация, семантические теги, а также <strong>измеренный профиль производительности</strong> (бенчмарки по времени, памяти и трафику — часть паспорта фрагмента).</p>
+  <p><strong>Определение (сборка).</strong> Сборка — подмножество S ⊆ ℱ вместе с операцией композиции ∘, склеивающей фрагменты в программу p ∈ 𝒫.</p>
+  <p><strong>Постановка задачи.</strong> Дано задание T со спецификацией Spec(T). Требуется найти:</p>
+  <div class="formula">argmin<sub>S ⊆ ℱ</sub>&nbsp;&nbsp;Φ(S) = α·Err(S, Spec(T)) + β·cost(p(S)) + γ·incomp(S)</div>
+  <p>где Err — несоответствие спецификации (проваленные тесты), cost — полный ресурсный след программы: размер, время выполнения, память, сетевой трафик, энергия (реализация принципов «ноль лишнего» и ресурсной ответственности), incomp — конфликты интерфейсов; α ≫ β, γ по умолчанию. Ограничения: типизируемость сборки, попарная совместимость интерфейсов, бюджет cost(p) ≤ B. Наличие cost в целевой функции означает, что <strong>эволюционный отбор отсекает расточительные комбинации автоматически</strong>: оптимизация встроена в механизм отбора, а не является отдельным этапом «когда прижмёт».</p>
+  <p><strong>Замечание о сложности.</strong> Пространство поиска — 2<sup>N_F</sup> подмножеств. При N_F ~ 10⁶ точное решение перебором невозможно.</p>
+</section>
+
+<section id="evidence">
+  <h2 class="section-title">Комбинаторная оценка (E1)</h2>
+  <p>Число сочетаний C(N_F, k) растёт взрывным образом:</p>
+  <table class="data">
+    <thead><tr><th>N_F \ k</th><th>10</th><th>20</th></tr></thead>
+    <tbody>
+      <tr><td>10⁴</td><td>10<sup>33.4</sup></td><td>10<sup>61.6</sup></td></tr>
+      <tr><td><strong>10⁶</strong></td><td>10<sup>53.4</sup></td><td><strong>10<sup>101.6</sup></strong></td></tr>
+    </tbody>
+  </table>
+  <p>При N_F = 10⁶, k = 20 получаем ≈10¹⁰¹ комбинаций — больше числа атомов во Вселенной (~10⁸⁰). Полный перебор невозможен. Контроль точными значениями: C(100,3) = 161 700; C(1000,10) = 2,63·10²³.</p>
+</section>
+
+<section id="evolution">
+  <h2 class="section-title">Эволюционный движок</h2>
+  <h3>Теоретические якоря</h3>
+  <ul class="list">
+    <li><strong>Схема-теорема Холланда [доказано].</strong> Короткие низкопорядковые схемы с фитнесом выше среднего нарастают в числе экспоненциально: E[m(H,t+1)] ≥ m(H,t)·(f̂(H,t)/f̄(t))·[1 − p_c·d(H)/(L−1) − o(H)·p_m]. Оговорка: неравенство об ожидании, не уравнение динамики.</li>
+    <li><strong>Уравнение Прайса [доказано].</strong> w̄·Δz̄ = Cov(wᵢ, zᵢ) + E(wᵢ·Δzᵢ) — фундаментальное разложение эволюционной динамики.</li>
+    <li><strong>Building Block Hypothesis [гипотеза]</strong> (Goldberg, 1989). Рабочее предположение о низкой эпистазии между хорошо изолированными фрагментами; известны контрпримеры (обманные функции).</li>
+    <li><strong>Sizing по Goldberg–Deb–Clark [доказано в принятой модели шума].</strong> N_s = 2cκσ²_M/d², где c — квадрат одностороннего нормального отклонения: при допустимой ошибке решения α = 0,05 имеем z = 1,645, c = z² ≈ 2,71. Эмпирический порог успешности N* = 50–100 против теоретической оценки 173 (при σ_M/d = 4): теория даёт запас, эмпирика скромнее — расхождение объяснимо элитизмом по истинному fitness.</li>
+  </ul>
+  <h3>Численные результаты (seed = 42, воспроизводимы)</h3>
+  <p><strong>E2 — сходимость GA</strong> (L=20, M=10): успех 30/30 при N ∈ {50, 100, 200}; первое попадание оптимума в поколении 38,7 / 25,3 / 20,6 (mean). Бюджет ≈ N·G = 2·10⁴ оценок против 10¹⁰¹ перебора — GA просматривает долю ≈10⁻⁹⁷ пространства и работает не за счёт перебора.</p>
+  <figure style="margin:18px 0;">
+    <img src="../assets/charts/ga.svg" alt="E2: сходимость генетического алгоритма" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
+    <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Рис. 1. Чем больше популяция, тем раньше находится решение; все 30 запусков успешны.</figcaption>
+  </figure>
+  <p><strong>E3 — эпистазия:</strong> при доле парных взаимодействий λ ≤ 0,3 корректность 1,0; при λ = 0,7 падает до 0,325 (0/30 до оптимума). Обосновывает требование «чистых интерфейсов» между фрагментами.</p>
+  <figure style="margin:18px 0;">
+    <img src="../assets/charts/epistasis.svg" alt="E3: влияние связанности фрагментов на корректность" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
+    <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Рис. 2. Метод работает, пока фрагменты слабо связаны — отсюда требование чистых интерфейсов.</figcaption>
+  </figure>
+  <p><strong>E4 — sizing vs эмпирика:</strong> при σ_M/d = 4 теоретический GDC N_s = 196 (κ=2, c=2,45), эмпирический порог N* = 50–100; теория консервативна в 1,6–3,2 раза (элитизм по истинному fitness).</p>
+</section>
+
+<section id="swarm">
+  <h2 class="section-title">Рой микросетей: ансамблевые границы</h2>
+  <p>Bias–variance декомпозиция [Geman et al., 1992]: E[(y−f̂(x))²] = Bias² + Var + σ². Для ансамбля из M моделей с попарной корреляцией ошибок ρ: Var → ρσ² при M→∞ — ключевую роль играет разнообразие экспертов (низкая ρ). Специализация через sparse MoE [Shazeer et al., 2017, arXiv:1701.06538].</p>
+  <p><strong>Граница [правдоподобно]:</strong> теоремы универсального превосходства роя нет (NFL); выигрыш достигается по латентности, отказоустойчивости и transfer-efficiency; сравнение «рой vs одна большая модель» — эмпирический вопрос.</p>
+</section>
+
+<section id="cegis">
+  <h2 class="section-title">Синтез по спецификации: CEGIS</h2>
+  <p>Каркас SyGuS [Alur et al., 2013]: найти f ∈ ℋ такое, что ∃f ∀x ∈ 𝒟: φ(x, f(x)). Цикл «синтезатор–верификатор»: soundness доказана; завершаемость при конечной грамматике доказана; полнота в общем случае недостижима.</p>
+  <p><strong>E9 (toy):</strong> max(x,y) синтезирован как ite((x&lt;y), y, x) за 1 итерацию CEGIS (820 кандидатов, 0,05 с); пост-верификация на сетке 1600 точек — 0 расхождений. Граница выразимости: без оператора сравнения задача невыразима в грамматике {+, *, ite} — честная граница метода.</p>
+</section>
+
+<section id="p2p">
+  <h2 class="section-title">P2P-слой: доказанные оценки</h2>
+  <ul class="list">
+    <li><strong>Kademlia [доказано], O(log n).</strong> E5 (n=10⁹, k=20, 1000 lookup): среднее 5,42 ± 0,83 хопов, максимум 8 (верхняя граница ceil log₂ n = 30).</li>
+    <li><strong>Gossip push-pull [доказано], O(log n)</strong> [Karp et al., FOCS 2000]. E6: n=10⁵ → 11,37 ± 0,48 раундов при log₃ n = 10,48 (ratio 1,08 и убывает с ростом n).</li>
+    <li><strong>CRDT [доказано]</strong> [Shapiro et al., 2011]. Join-полурешётка = коммутативный идемпотентный моноид → eventual consistency. E7: 10 000/10 000 проверок коммутативности/ассоциативности/идемпотентности для GCounter, GSet, ORSet; 1000/1000 сценариев сходимости реплик.</li>
+    <li><strong>Aмдал [доказано].</strong> E8: p=0,99 → S(1024)=91,2, предел 100; последовательная часть (координация, верификация) задаёт потолок ускорения распределённой сборки.</li>
+  </ul>
+  <figure style="margin:18px 0;">
+    <img src="../assets/charts/kademlia.svg" alt="E5: хопы Kademlia при росте сети" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
+    <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Рис. 3. Поиск фрагмента: от тысячи до миллиарда узлов — рост всего в ~3 шага.</figcaption>
+  </figure>
+  <figure style="margin:18px 0;">
+    <img src="../assets/charts/gossip.svg" alt="E6: раунды распространения обновления" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
+    <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Рис. 4. Волна обновления достигает всех узлов за логарифмическое число раундов.</figcaption>
+  </figure>
+  <figure style="margin:18px 0;">
+    <img src="../assets/charts/amdahl.svg" alt="E8: кривые Амдала для разных долей параллелизма" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
+    <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Рис. 5. Честный потолок параллелизма: последовательная доля координации ограничивает ускорение.</figcaption>
+  </figure>
+</section>
+
+<section id="trust">
+  <h2 class="section-title">Доверие без блокчейна</h2>
+  <table class="data">
+    <thead><tr><th>Механизм</th><th>Гарантия</th><th>Статус</th><th>Источник</th></tr></thead>
+    <tbody>
+      <tr><td>PBFT</td><td>n ≥ 3f+1 (византийские отказы)</td><td>Доказано</td><td>Castro &amp; Liskov, 1999/2002</td></tr>
+      <tr><td>Raft</td><td>n ≥ 2f+1 (crash-only)</td><td>Доказано</td><td>Ongaro &amp; Ousterhout, 2014</td></tr>
+      <tr><td>Hashgraph aBFT</td><td>n ≥ 3f+1, асинхронный BFT</td><td>Свойство протокола</td><td>Baird, 2016</td></tr>
+      <tr><td>Sybil-защита</td><td>Без внешней идентификации невозможна</td><td>Доказано (нижняя граница)</td><td>Douceur, 2002</td></tr>
+      <tr><td>Репутация</td><td>Исполняемые тесты + resource testing</td><td>Инженерная практика</td><td>Mohaisen &amp; Kim, 2013</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="mdl">
+  <h2 class="section-title">«Ноль лишнего»: MDL и колмогоровская сложность</h2>
+  <p>MDL-принцип [Rissanen, 1978; Grünwald, 2007]: L(D) = min_H [L(H) + L(D|H)] — формализация бритвы Оккама. Колмогоровская сложность K(x) <strong>невычислима</strong>; любая практическая минимизация — аппроксимация.</p>
+  <p><strong>E10 (a):</strong> дублирующиеся мёртвые фрагменты почти не влияют на zlib-размер (159 → 265 при k: 0 → 200); уникальные мёртвые растут и raw-, и zlib-метрику. <strong>(b):</strong> GA с MDL-штрафом сокращает длину сборки в 2,5× (150,9 → 60,9) при сохранении корректности 1,0. <strong>(c):</strong> корреляция Пирсона zlib-длины с корректностью ≈ −0,04 — сжатие ловит структуру содержимого, а не «нужность»; граница MDL-эвристики зафиксирована.</p>
+  <figure style="margin:18px 0;">
+    <img src="../assets/charts/mdl.svg" alt="E10: длина сборки с MDL-штрафом и без" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
+    <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Рис. 6. Принцип «ноль лишнего»: сборка в 2,5 раза короче без потери корректности.</figcaption>
+  </figure>
+</section>
+
+<section id="limits">
+  <h2 class="section-title">Честные пределы</h2>
+  <table class="data">
+    <thead><tr><th>Барьер</th><th>Результат</th><th>Статус</th><th>Следствие для концепта</th></tr></thead>
+    <tbody>
+      <tr><td>K невычислима</td><td>Kolmogorov; Li &amp; Vitányi, 2008</td><td>Невозможно</td><td>«Ноль лишнего» — эвристика (MDL), не математический оптимум</td></tr>
+      <tr><td>No Free Lunch</td><td>Wolpert &amp; Macready, 1997</td><td>Невозможно</td><td>Нет идеального сборщика для всех задач; сила — на классе задач со структурой</td></tr>
+      <tr><td>Закон Амдала</td><td>Amdahl, 1967</td><td>Доказано</td><td>Параллелизм ограничен последовательной долей координации</td></tr>
+      <tr><td>Остановка / Райс</td><td>Turing, 1936; Rice, 1953</td><td>Невозможно</td><td>Абсолютная безошибочность недостижима; достижимы тесты на конечных наборах и верификация ограниченных свойств</td></tr>
+    </tbody>
+  </table>
+  <p>Дополнительные оговорки: схема-теорема ≠ гарантия сходимости GA; hashgraph aBFT — свойство протокола при его допущениях; Tangle — вероятностный консенсус; квантовые перспективы концепта — вне текущей математической базы и обозначены как направление.</p>
+</section>
+
+<section id="sources">
+  <h2 class="section-title">Верифицируемость</h2>
+  <p>Все 10 серий экспериментов исполнены на Python + numpy с фиксированным начальным состоянием генератора случайных чисел; <strong>исходные коды всех экспериментов открыты</strong> — в каталоге <a href="../research/experiments/" style="color:var(--accent2);">research/experiments/</a> этого репозитория, полный отчёт — в <a href="../research/report.md" style="color:var(--accent2);">research/report.md</a>. Каждый запуск воспроизводим: любой желающий может повторить вычисления и получить те же числа. Все источники (47 позиций) приведены с указанием авторов, года и ссылки на первоисточник.</p>
+  <div class="level-links">
+    <span class="lbl">Другие уровни изложения:</span>
+    <a href="../index.html">← На главную страницу</a>
+    <a href="vsem.html">Для всех</a>
+    <a href="specialistam.html">Для специалистов</a>
+    <a href="filosofiya.html">Философия концепции</a>
+  </div>
+</section>
+
+</div>
+
+<footer class="site">
+  <div class="container">
+    <div class="slogan">«Океан кода из миллиарда капель»</div>
+    <div>MICROCEAN · концепция опубликована как всеобщее достояние · 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
