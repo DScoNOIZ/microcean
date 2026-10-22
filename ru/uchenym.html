@@ -6,7 +6,15 @@
 <title>MICROCEAN — Для учёных</title>
 <meta name="description" content="Формальная модель Microcean, математический аппарат, численные эксперименты E1–E10 с воспроизводимыми результатами и честный анализ границ применимости.">
 <meta name="theme-color" content="#0a1622">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/style.css">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MICROCEAN — Для учёных">
+<meta property="og:description" content="Формальная модель Microcean, математический аппарат, численные эксперименты E1–E10 с воспроизводимыми результатами и честный анализ границ применимости.">
+<meta property="og:site_name" content="MICROCEAN">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image" content="../favicon.svg">
+<meta name="twitter:card" content="summary">
 </head>
 <body>
 
@@ -63,12 +71,12 @@
     <img src="../assets/charts/epistasis.svg" alt="E3: влияние связанности фрагментов на корректность" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
     <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Рис. 2. Метод работает, пока фрагменты слабо связаны — отсюда требование чистых интерфейсов.</figcaption>
   </figure>
-  <p><strong>E4 — sizing vs эмпирика:</strong> при σ_M/d = 4 теоретический GDC N_s = 196 (κ=2, c=2,45), эмпирический порог N* = 50–100; теория консервативна в 1,6–3,2 раза (элитизм по истинному fitness).</p>
+  <p><strong>E4 — sizing vs эмпирика:</strong> при σ_M/d = 4 теоретический GDC N_s = 173 (κ=2, c=z²≈2,71), эмпирический порог N* = 50–100; теория консервативна в 1,7–3,5 раза (элитизм по истинному fitness).</p>
 </section>
 
 <section id="swarm">
   <h2 class="section-title">Рой микросетей: ансамблевые границы</h2>
-  <p>Bias–variance декомпозиция [Geman et al., 1992]: E[(y−f̂(x))²] = Bias² + Var + σ². Для ансамбля из M моделей с попарной корреляцией ошибок ρ: Var → ρσ² при M→∞ — ключевую роль играет разнообразие экспертов (низкая ρ). Специализация через sparse MoE [Shazeer et al., 2017, arXiv:1701.06538].</p>
+  <p>Bias–variance декомпозиция [Geman et al., 1992]: E[(y−f̂(x))²] = Bias² + Var + σ². Для ансамбля из M моделей с попарной корреляцией ошибок ρ: Var → ρσ² при M→∞ — ключевую роль играет разнообразие экспертов (низкая ρ). Специализация через sparse MoE [Shazeer et al., 2017, arXiv:1701.06538] — «разреженная смесь экспертов».</p>
   <p><strong>Граница [правдоподобно]:</strong> теоремы универсального превосходства роя нет (NFL); выигрыш достигается по латентности, отказоустойчивости и transfer-efficiency; сравнение «рой vs одна большая модель» — эмпирический вопрос.</p>
 </section>
 
@@ -84,7 +92,7 @@
     <li><strong>Kademlia [доказано], O(log n).</strong> E5 (n=10⁹, k=20, 1000 lookup): среднее 5,42 ± 0,83 хопов, максимум 8 (верхняя граница ceil log₂ n = 30).</li>
     <li><strong>Gossip push-pull [доказано], O(log n)</strong> [Karp et al., FOCS 2000]. E6: n=10⁵ → 11,37 ± 0,48 раундов при log₃ n = 10,48 (ratio 1,08 и убывает с ростом n).</li>
     <li><strong>CRDT [доказано]</strong> [Shapiro et al., 2011]. Join-полурешётка = коммутативный идемпотентный моноид → eventual consistency. E7: 10 000/10 000 проверок коммутативности/ассоциативности/идемпотентности для GCounter, GSet, ORSet; 1000/1000 сценариев сходимости реплик.</li>
-    <li><strong>Aмдал [доказано].</strong> E8: p=0,99 → S(1024)=91,2, предел 100; последовательная часть (координация, верификация) задаёт потолок ускорения распределённой сборки.</li>
+    <li><strong>Амдал [доказано].</strong> E8: p=0,99 → S(1024)=91,2, предел 100; последовательная часть (координация, верификация) задаёт потолок ускорения распределённой сборки.</li>
   </ul>
   <figure style="margin:18px 0;">
     <img src="../assets/charts/kademlia.svg" alt="E5: хопы Kademlia при росте сети" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
@@ -140,7 +148,49 @@
 
 <section id="sources">
   <h2 class="section-title">Верифицируемость</h2>
-  <p>Все 10 серий экспериментов исполнены на Python + numpy с фиксированным начальным состоянием генератора случайных чисел; <strong>исходные коды всех экспериментов открыты</strong> — в каталоге <a href="../research/experiments/" style="color:var(--accent2);">research/experiments/</a> этого репозитория, полный отчёт — в <a href="../research/report.md" style="color:var(--accent2);">research/report.md</a>. Каждый запуск воспроизводим: любой желающий может повторить вычисления и получить те же числа. Все источники (47 позиций) приведены с указанием авторов, года и ссылки на первоисточник.</p>
+  <p>Все 10 серий экспериментов исполнены на Python + numpy с фиксированным начальным состоянием генератора случайных чисел; <strong>исходные коды всех экспериментов открыты</strong> — в каталоге <a href="../research/experiments/" style="color:var(--accent2);">research/experiments/</a> этого репозитория, полный отчёт — в <a href="../research/report.md" style="color:var(--accent2);">research/report.md</a>. Каждый запуск воспроизводим: любой желающий может повторить вычисления и получить те же числа. Полный список источников — 47 позиций с указанием авторов, года и ссылки на первоисточник — приведён в научной публикации концепции; ниже воспроизведена его внешняя часть (позиции 1–40; позиции 41–47 — внутренние артефакты Research Institute, они фиксируются в самой публикации).</p>
+  <ol class="list">
+    <li>Holland J.H., 1975. <em>Adaptation in Natural and Artificial Systems.</em> Univ. of Michigan Press. <a href="https://en.wikipedia.org/wiki/Holland%27s_schema_theorem">en.wikipedia.org/wiki/Holland%27s_schema_theorem</a></li>
+    <li>Goldberg D.E., 1989. <em>Genetic Algorithms in Search, Optimization and Machine Learning.</em> Addison-Wesley. (BBH)</li>
+    <li><strong>Goldberg D.E., Deb K., Clark J.H., 1992. <em>Genetic Algorithms, Noise, and the Sizing of Populations.</em> Complex Systems 6:333–362.</strong> <a href="https://content.wolfram.com/sites/13/2018/02/06-4-3.pdf">content.wolfram.com/sites/13/2018/02/06-4-3.pdf</a> ; <a href="https://www.egr.msu.edu/~kdeb/papers/k99003.pdf">egr.msu.edu/~kdeb/papers/k99003.pdf</a> (формула (14))</li>
+    <li>Price G.R., 1970. <em>Selection and covariance.</em> Nature 227:520–521. <a href="https://en.wikipedia.org/wiki/Price_equation">en.wikipedia.org/wiki/Price_equation</a> ; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3354028/">pmc.ncbi.nlm.nih.gov/articles/PMC3354028</a></li>
+    <li>White D.R., 2018. <em>An overview of schema theory.</em> GJM. <a href="https://gradmath.org/wp-content/uploads/2020/10/White-GJM-2018.pdf">gradmath.org/…/White-GJM-2018.pdf</a></li>
+    <li>Langdon W.B., 1998. <em>Genetic Programming and Data Structures.</em> Springer.</li>
+    <li>Eiben A.E., Smith J.E., 2003/2015. <em>Introduction to Evolutionary Computing.</em> Springer.</li>
+    <li>Wolpert D.H., Macready W.G., 1997. <em>No Free Lunch Theorems for Optimization.</em> IEEE TEC 1(1):67–82. <a href="https://en.wikipedia.org/wiki/No_free_lunch_theorem">en.wikipedia.org/wiki/No_free_lunch_theorem</a> ; <a href="http://no-free-lunch.org">no-free-lunch.org</a> ; <a href="https://ieeexplore.ieee.org/document/585893">ieeexplore.ieee.org/document/585893</a></li>
+    <li>Amdahl G., 1967. <em>Validity of the Single Processor Approach…</em> AFIPS. <a href="https://www.geeksforgeeks.org/computer-organization-architecture/computer-organization-amdahls-law-and-its-proof">geeksforgeeks.org/…/amdahls-law-and-its-proof</a> ; <a href="https://web.engr.oregonstate.edu/~mjb/cs575/Handouts/speedups.and.amdahls.law.1pp.pdf">web.engr.oregonstate.edu/…/speedups.and.amdahls.law.1pp.pdf</a></li>
+    <li>Gustafson J., 1988. <em>Reevaluating Amdahl's Law.</em> CACM.</li>
+    <li>Turing A., 1936. <em>On Computable Numbers…</em> Proc. LMS. <a href="https://en.wikipedia.org/wiki/Halting_problem">en.wikipedia.org/wiki/Halting_problem</a> ; <a href="https://tonia.ai/undecidability.html">tonia.ai/undecidability.html</a></li>
+    <li>Rice H.G., 1953. <em>Classes of Recursively Enumerable Sets…</em> Trans. AMS. <a href="https://en.wikipedia.org/wiki/Halting_problem">en.wikipedia.org/wiki/Halting_problem</a> ; <a href="https://tonia.ai/undecidability.html">tonia.ai/undecidability.html</a></li>
+    <li>arXiv:2604.16477 (2026). <em>A Constructive Proof of Rice's Theorem…</em> <a href="https://arxiv.org/html/2604.16477v1">arxiv.org/html/2604.16477v1</a></li>
+    <li>Alur R. et al., 2013. <em>Syntax-Guided Synthesis (SyGuS).</em> FMCAD. <a href="https://www.semanticscholar.org/paper/Syntax-guided-synthesis-Alur-Bod%C3%ADk/f7ba81057c8ec4f1c039027232034143a5afe6bf">semanticscholar.org/paper/Syntax-guided-synthesis-Alur-Bod%C3%ADk</a></li>
+    <li>Solar-Lezama A., 2013. <em>Program Sketching.</em> STTT 15(5-6):475–495. <a href="https://homepages.dcc.ufmg.br/~hbarbosa/papers/cegist-journal.pdf">homepages.dcc.ufmg.br/…/cegist-journal.pdf</a> ; <a href="https://www.cs.ox.ac.uk/people/alessandro.abate/publications/bcADKKP18.pdf">cs.ox.ac.uk/…/bcADKKP18.pdf</a></li>
+    <li>CEGIS-материалы: <a href="https://pages.cs.wisc.edu/~qhu28/homework/assignment_cegis.html">pages.cs.wisc.edu/…/assignment_cegis.html</a> ; <a href="https://remy.wang/blog/cegis.html">remy.wang/blog/cegis.html</a> ; <a href="https://www.emergentmind.com/topics/counterexample-guided-inductive-synthesis-cegis">emergentmind.com/topics/counterexample-guided-inductive-synthesis-cegis</a></li>
+    <li>Maymounkov P., Mazières D., 2002. <em>Kademlia: A Peer-to-peer Information System Based on the XOR Metric.</em> IPTPS. <a href="https://www.ic.unicamp.br/~bit/ensino/mo809_1s13/papers/P2P/Kademlia-%20A%20Peer-to-Peer%20Information%20System%20Based%20on%20the%20XOR%20Metric%20.pdf">ic.unicamp.br/…/Kademlia-XOR-Metric-.pdf</a> ; <a href="https://en.wikipedia.org/wiki/Kademlia">en.wikipedia.org/wiki/Kademlia</a></li>
+    <li>Karp R. et al., 2000. <em>Randomized Rumor Spreading.</em> FOCS 2000. <a href="http://www.csun.edu/~jeffw/Semesters/2006Spring/COMP529/References/17.1/randomized.pdf">csun.edu/…/randomized.pdf</a></li>
+    <li>Haeupler B., 2015. <em>Simple, Fast and Deterministic Gossip…</em> JACM/ACM. <a href="https://disco.ethz.ch/courses/fs14/seminar/paper/Klaus/1.pdf">disco.ethz.ch/…/1.pdf</a></li>
+    <li>Cohen B., 2003. <em>Incentives Build Robustness in BitTorrent.</em> IPTPS. <a href="https://www.cs.princeton.edu/courses/archive/fall17/cos561/papers/BitTorrent03.pdf">cs.princeton.edu/…/BitTorrent03.pdf</a></li>
+    <li>Legout A. et al., 2006. <em>Rarest First and Choke Algorithms Are Enough.</em> ACM SIGCOMM. <a href="https://www.eurecom.fr/en/publication/1932/download/ce-legoar-060213.pdf">eurecom.fr/en/publication/1932</a></li>
+    <li>Shapiro M. et al., 2011. <em>A Comprehensive Study of Convergent and Commutative Replicated Data Types.</em> INRIA RR-7506 / SSS 2011. <a href="https://dsf.berkeley.edu/cs286/papers/crdt-tr2011.pdf">dsf.berkeley.edu/cs286/papers/crdt-tr2011.pdf</a> ; <a href="https://asc.di.fct.unl.pt/~nmp/pubs/sss-2011.pdf">asc.di.fct.unl.pt/~nmp/pubs/sss-2011.pdf</a> ; <a href="https://crdt.tech">crdt.tech</a></li>
+    <li>Castro M., Liskov B., 1999/2002. <em>Practical Byzantine Fault Tolerance.</em> OSDI'99 / ACM TOCS. <a href="https://users.cs.utah.edu/~stutsman/cs6963/public/pbft.pdf">users.cs.utah.edu/…/pbft.pdf</a></li>
+    <li>Ongaro D., Ousterhout J., 2014. <em>In Search of an Understandable Consensus Algorithm (Raft).</em> USENIX ATC. <a href="https://raft.github.io/raft.pdf">raft.github.io/raft.pdf</a></li>
+    <li>Baird L., 2016. <em>The Swirlds Hashgraph Consensus Algorithm.</em> <a href="https://en.wikipedia.org/wiki/Hedera_(distributed_ledger)">en.wikipedia.org/wiki/Hedera_(distributed_ledger)</a> ; <a href="https://docs.hedera.com/learn/core-concepts/hashgraph">docs.hedera.com/learn/core-concepts/hashgraph</a></li>
+    <li>Popov S., 2017/2022. <em>The Tangle.</em> IOTA whitepaper. <a href="https://arxiv.org/pdf/2209.04959">arxiv.org/pdf/2209.04959</a> ; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12157984">pmc.ncbi.nlm.nih.gov/articles/PMC12157984</a></li>
+    <li><strong>Douceur J., 2002. <em>The Sybil Attack.</em> IPTPS.</strong> <a href="https://www.microsoft.com/en-us/research/publication/the-sybil-attack/">microsoft.com/…/the-sybil-attack</a> (исправлено R3)</li>
+    <li>Mohaisen A., Kim J., 2013. <em>The Sybil Attacks and Defenses: A Survey.</em> <a href="https://www.verisign.com/assets/labs/scr13.pdf">verisign.com/assets/labs/scr13.pdf</a></li>
+    <li>Hoffman K. et al., 2009. <em>A Survey of Attack and Defense Techniques for Reputation Systems.</em> <a href="https://cnitarot.github.io/papers/p2p-reputation-survey.pdf">cnitarot.github.io/papers/p2p-reputation-survey.pdf</a></li>
+    <li>Geman S. et al., 1992. <em>Neural Networks and the Bias/Variance Dilemma.</em> Neural Computation 4(1):1–58. <a href="http://doursat.free.fr/docs/Geman_Bienenstock_Doursat_1992_bv_NeurComp.pdf">doursat.free.fr/…/Geman_Bienenstock_Doursat_1992_bv_NeurComp.pdf</a></li>
+    <li>Dietterich T., 2000. <em>Ensemble Methods in Machine Learning.</em> MCS. (цитируется в <a href="https://arxiv.org/pdf/2301.03962">arxiv.org/pdf/2301.03962</a>)</li>
+    <li>Ueda N., Nakano R., 1996. <em>Generalization Error of Ensemble Estimators.</em> (обсуждается в <a href="https://arxiv.org/pdf/2301.03962">arxiv.org/pdf/2301.03962</a>)</li>
+    <li>Domingos P., 2000. <em>A Unified Bias-Variance Decomposition.</em> ICML. <a href="https://homes.cs.washington.edu/~pedrod/bvd.pdf">homes.cs.washington.edu/~pedrod/bvd.pdf</a></li>
+    <li>Jacobs R. et al., 1991. <em>Adaptive Mixtures of Local Experts.</em> Neural Computation 3(1):79–87.</li>
+    <li>Shazeer N. et al., 2017. <em>Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer.</em> arXiv:1701.06538.</li>
+    <li>Rissanen J., 1978. <em>Modeling by Shortest Data Description.</em> Automatica 14:465–471. <a href="http://www.modelselection.org/mdl">modelselection.org/mdl</a></li>
+    <li>Kolmogorov A.N., 1963/1968. <em>On Tables of Random Numbers / Three Approaches…</em> (см. Li &amp; Vitányi)</li>
+    <li><strong>Li M., Vitányi P., 2008. <em>An Introduction to Kolmogorov Complexity and Its Applications.</em> 3rd ed., Springer.</strong> (исправлено R3: правильное авторство)</li>
+    <li>Grünwald P., 2007. <em>The Minimum Description Length Principle.</em> MIT Press. <a href="https://homepages.cwi.nl/~pdg/ftp/mdlintro.pdf">homepages.cwi.nl/~pdg/ftp/mdlintro.pdf</a></li>
+    <li>Statistics How To. <em>Kolmogorov Complexity &amp; Minimum Description Length.</em> <a href="https://www.statisticshowto.com/minimum-description-length-kolmogorov-complexity">statisticshowto.com/minimum-description-length-kolmogorov-complexity</a></li>
+  </ol>
   <div class="level-links">
     <span class="lbl">Другие уровни изложения:</span>
     <a href="../index.html">← На главную страницу</a>
@@ -155,7 +205,7 @@
 <footer class="site">
   <div class="container">
     <div class="slogan">«Океан кода из миллиарда капель»</div>
-    <div>MICROCEAN · концепция опубликована как всеобщее достояние · 2026</div>
+    <div>MICROCEAN · концепция публикуется открыто · заявлено как всеобщее достояние (CC0) · 2026</div>
   </div>
 </footer>
 

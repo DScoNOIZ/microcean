@@ -138,18 +138,26 @@ print("\n".join(out))
 with open(f"{OUT}/EXP2_output.txt", "w", encoding="utf-8") as f:
     f.write("\n".join(out) + "\n")
 
-# ---------------------------------------------------------------- PNG
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-fig, ax = plt.subplots(figsize=(7, 4.5))
-for N in N_OPTIONS:
-    ax.plot(range(G_MAX + 1), traces[N], label=f"N={N}")
-ax.set_xlabel("поколение")
-ax.set_ylabel("лучший фитнес (средний по 30 прогонам)")
-ax.set_title("E2: сходимость GA (сборка L=20, M=10), seed=42")
-ax.legend()
-ax.grid(alpha=0.3)
-fig.tight_layout()
-fig.savefig(f"{OUT}/EXP2_ga_convergence.png", dpi=140)
-print(f"\n[PNG сохранён: {OUT}/EXP2_ga_convergence.png]")
+# ---------------------------------------------------------------- PNG (matplotlib optional)
+try:
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    HAS_MPL = True
+except ImportError:
+    HAS_MPL = False
+
+if HAS_MPL:
+    fig, ax = plt.subplots(figsize=(7, 4.5))
+    for N in N_OPTIONS:
+        ax.plot(range(G_MAX + 1), traces[N], label=f"N={N}")
+    ax.set_xlabel("поколение")
+    ax.set_ylabel("лучший фитнес (средний по 30 прогонам)")
+    ax.set_title("E2: сходимость GA (сборка L=20, M=10), seed=42")
+    ax.legend()
+    ax.grid(alpha=0.3)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/EXP2_ga_convergence.png", dpi=140)
+    print(f"\n[PNG сохранён: {OUT}/EXP2_ga_convergence.png]")
+else:
+    print("\n[matplotlib недоступен — PNG пропущен; численные таблицы выше полны]")

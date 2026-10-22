@@ -12,9 +12,14 @@
 Версии: python 3.13.14; детерминированная формула, seed не нужен.
 """
 import os
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+
+try:
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    HAS_MPL = True
+except ImportError:
+    HAS_MPL = False
 
 PS = [0.5, 0.9, 0.95, 0.99]
 NS = [1, 2, 4, 8, 16, 64, 256, 1024, float("inf")]
@@ -54,21 +59,24 @@ print("\n".join(out))
 with open(f"{OUT}/EXP8_output.txt", "w", encoding="utf-8") as f:
     f.write("\n".join(out) + "\n")
 
-# PNG
-fig, ax = plt.subplots(figsize=(7.5, 5))
-xs = np_log = [1, 2, 4, 8, 16, 64, 256, 1024]
-for p in PS:
-    ys = [speedup(p, n) for n in xs]
-    ax.plot(xs, ys, "o-", label=f"p={p}")
-ax.plot(xs, xs, "k--", label="идеал (S=n)")
-ax.set_xscale("log", base=2)
-ax.set_xticks(xs)
-ax.set_xticklabels([str(x) for x in xs])
-ax.set_xlabel("число процессоров n")
-ax.set_ylabel("ускорение S(n)")
-ax.set_title("E8: закон Амдала")
-ax.legend()
-ax.grid(alpha=0.3, which="both")
-fig.tight_layout()
-fig.savefig(f"{OUT}/EXP8_amdahl.png", dpi=140)
-print(f"[PNG: {OUT}/EXP8_amdahl.png]")
+# PNG (matplotlib optional)
+if HAS_MPL:
+    fig, ax = plt.subplots(figsize=(7.5, 5))
+    xs = np_log = [1, 2, 4, 8, 16, 64, 256, 1024]
+    for p in PS:
+        ys = [speedup(p, n) for n in xs]
+        ax.plot(xs, ys, "o-", label=f"p={p}")
+    ax.plot(xs, xs, "k--", label="идеал (S=n)")
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(xs)
+    ax.set_xticklabels([str(x) for x in xs])
+    ax.set_xlabel("число процессоров n")
+    ax.set_ylabel("ускорение S(n)")
+    ax.set_title("E8: закон Амдала")
+    ax.legend()
+    ax.grid(alpha=0.3, which="both")
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/EXP8_amdahl.png", dpi=140)
+    print(f"[PNG: {OUT}/EXP8_amdahl.png]")
+else:
+    print("[matplotlib недоступен — PNG пропущен; таблица выше полна]")

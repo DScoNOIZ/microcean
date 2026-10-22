@@ -17,9 +17,14 @@ n in {10^2, 10^3, 10^4, 10^5}; 30 прогонов; seed фиксирован (m
 import numpy as np
 import math
 import os
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+
+try:
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    HAS_MPL = True
+except ImportError:
+    HAS_MPL = False
 
 NS = [10**2, 10**3, 10**4, 10**5]
 RUNS = 30
@@ -77,18 +82,21 @@ print("\n".join(out))
 with open(f"{OUT}/EXP6_output.txt", "w", encoding="utf-8") as f:
     f.write("\n".join(out) + "\n")
 
-# PNG: масштабирование
-fig, ax = plt.subplots(figsize=(7, 4.5))
-xs = np.array(NS, dtype=float)
-ax.plot(xs, [mean_rounds[n] for n in NS], "o-", label="симуляция (mean)")
-ax.plot(xs, [math.log(n, 3) for n in NS], "s--", label="log_3 n")
-ax.plot(xs, [math.log(n, 2) for n in NS], "^--", label="log_2 n")
-ax.set_xscale("log")
-ax.set_xlabel("n (узлов)")
-ax.set_ylabel("раунды")
-ax.set_title("E6: gossip push-pull — раунды до полного распространения")
-ax.legend()
-ax.grid(alpha=0.3, which="both")
-fig.tight_layout()
-fig.savefig(f"{OUT}/EXP6_gossip.png", dpi=140)
-print(f"[PNG: {OUT}/EXP6_gossip.png]")
+# PNG: масштабирование (matplotlib optional)
+if HAS_MPL:
+    fig, ax = plt.subplots(figsize=(7, 4.5))
+    xs = np.array(NS, dtype=float)
+    ax.plot(xs, [mean_rounds[n] for n in NS], "o-", label="симуляция (mean)")
+    ax.plot(xs, [math.log(n, 3) for n in NS], "s--", label="log_3 n")
+    ax.plot(xs, [math.log(n, 2) for n in NS], "^--", label="log_2 n")
+    ax.set_xscale("log")
+    ax.set_xlabel("n (узлов)")
+    ax.set_ylabel("раунды")
+    ax.set_title("E6: gossip push-pull — раунды до полного распространения")
+    ax.legend()
+    ax.grid(alpha=0.3, which="both")
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/EXP6_gossip.png", dpi=140)
+    print(f"[PNG: {OUT}/EXP6_gossip.png]")
+else:
+    print("[matplotlib недоступен — PNG пропущен; таблица выше полна]")
