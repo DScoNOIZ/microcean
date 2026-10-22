@@ -15,22 +15,31 @@ Link field: path to detail file in this directory, or `-` if none.
 
 ## Agent roster
 
-| Agent | Assigned phase | Status |
-|-------|----------------|--------|
-| BOOTSTRAP | repo init + board setup | in progress |
-| — | FACT-CHECK-A | — |
-| — | FACT-CHECK-B | — |
-| — | FACT-CHECK-C | — |
-| — | FACT-CHECK-D | — |
-| — | FIXES | — |
-| — | STYLE | — |
-| — | GATES | — |
+| Agent | Assigned phase | Status (scope + result) |
+|-------|----------------|------------------------|
+| BOOTSTRAP | repo-init + board setup | DONE — git init -b main (442a19f), shared board created, first commit carries all site files + OTCHETY/ |
+| FC-A | FACT-CHECK-A: index.html + ru/vsem.html | DONE — 41 claims: 0 false, 12 imprecise (15 rows, 3 cross-page dups), 26 verified incl. 3 rhetoric; ledger fc_a_index_vsem.md |
+| FC-B | FACT-CHECK-B: specialistam + filosofiya | DONE — 30 claims: 0 false, 10 imprecise, 17 verified incl. 3 rhetoric; ledger fc_b_specialists_philosophy.md |
+| FC-C | FACT-CHECK-C: uchenym + research/report.md + EXP1-10 repro | DONE — 48 ledger rows: 41 verified, 4 imprecise, 1 false (E4 GDC split-brain), 2 script-UNVERIFIED (EXP6/EXP8, matplotlib); repro 9/10 matched, 8/10 exit 0; ledger fc_c_scientists_research.md |
+| FC-D | FACT-CHECK-D: cross-audit + wiki M1-M4 | DONE — 0 broken links, 20 SEO gaps, D2 5 overshoots + 2 footers, D4 6 legal wordings, 14 wiki localizations; ledger fc_d_crosscheck_wiki.md |
+| F1 | FIXES: index + vsem | DONE — 20/20 ledger fix rows + 5 cross D2/D4 rows, links OK |
+| F2 | FIXES: specialistam + filosofiya | DONE — 15/15 fix rows, links OK |
+| F3 | FIXES: uchenym + report.md + numbers | DONE — 7 fix groups; post-fix EXP2/4/6/8 exit 0; E4 unified c=z^2=2.71, N_s=173 (documented deviation from 1.96/125.44 per newer publication fact-check) |
+| SEO | SURFACE: favicon/robots/sitemap/head-meta | DONE — seo_wave2.md; head meta 5/5, links 0 broken; canonical + sitemap domain pending (sentinel EMPTY-PENDING-DOMAIN kept in repo) |
+| WIKI | WIKI M1-M4 execution | DONE — 3 commits (bccf760, 687a0c4, 0de5002) + kanban copies (LEG-R1 x3, LEG-R2 x2, LEG-W, code/json key split, R2-REPORT addendum x2) |
+| CONSOL | CONSOLIDATION: master fact-check ledger | DONE — FACTCHECK-LEDGER.md (119 claims audited; 34/35 fully resolved = 97%; 7 residuals; ledger cross-checked against all 4 fc files) |
+| STYLE | STYLE wave3: typography/layout consistency | DONE — style_wave3.md; 5 pages within rails, fact-sweep clean, parse/anchor 0 issues (verified by GATES) |
+| GATES | GATES: final quality gates | DONE — verdict ACCEPT; suite 0/0/0 (links/parse/tokens), EXP2/4/6/8/9/10 exit 0; fixes: uchenym footer (D2), R6 865.93; residuals R4/R6/R7 closed, R1/R2/R3 open, R5 accepted as-is; commits 928369f + docs wave |
+| CONTINUOUS | CONTINUOUS: regression watch | RUNNING |
 
 ## Current session phases
 
-- BOOTSTRAP — init repo, create this board, first commit
-- FACT-CHECK-A..D — verify site claims against research/
-- FIXES — factual corrections after fact-check
-- STYLE — typography/layout consistency pass
-- GATES — final quality gates before convergence
-- CONTINUOUS — regression watch after convergence
+- BOOTSTRAP — init repo, create this board, first commit — **COMPLETE**
+- FACT-CHECK-A..D — verify site claims against research/ — **COMPLETE** (ledgers fc_a..fc_d)
+- FIXES — factual corrections after fact-check — **COMPLETE** (F1 20/20+5 cross, F2 15/15, F3 7 groups)
+- SURFACE — SEO wave2 (favicon, robots, sitemap, head meta) — **COMPLETE** (canonical/domain pass pending)
+- WIKI — M1-M4 execution on wiki layer — **COMPLETE** (commits bccf760, 687a0c4, 0de5002)
+- CONSOLIDATION — master accountability ledger — **COMPLETE** (OTCHETY/FACTCHECK-LEDGER.md)
+- STYLE — typography/layout consistency pass — **COMPLETE** (style_wave3.md; GATES-verified)
+- GATES — final quality gates before convergence — **COMPLETE** (verdict ACCEPT; FACTCHECK-LEDGER.md §6)
+- CONTINUOUS — regression watch after convergence — RUNNING

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ORCHESTRATOR: fill domain before publish. Sitemap template: the production
+     domain is not set yet, so every <loc> carries the EMPTY-PENDING-DOMAIN
+     sentinel instead of a fake URL. Replace the sentinel with the real domain,
+     remove this comment, then reference the file from robots.txt. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>EMPTY-PENDING-DOMAIN/</loc>
+  </url>
+  <url>
+    <loc>EMPTY-PENDING-DOMAIN/ru/vsem.html</loc>
+  </url>
+  <url>
+    <loc>EMPTY-PENDING-DOMAIN/ru/specialistam.html</loc>
+  </url>
+  <url>
+    <loc>EMPTY-PENDING-DOMAIN/ru/uchenym.html</loc>
+  </url>
+  <url>
+    <loc>EMPTY-PENDING-DOMAIN/ru/filosofiya.html</loc>
+  </url>
+</urlset>
