@@ -94,3 +94,9 @@ footer.site .slogan { font-style: italic; color: var(--text-strong); font-size: 
   .logo { font-size: 1.9rem; }
   .cards-grid { grid-template-columns: 1fr; }
 }
+:focus-visible { outline: 2px solid var(--accent2); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+  section { opacity: 1 !important; transform: none !important; }
+  .card:hover { transform: none; }
+}

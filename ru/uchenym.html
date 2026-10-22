@@ -20,16 +20,16 @@
 
 <header class="site">
   <div class="container">
-    <div class="breadcrumb"><a href="../index.html">← На главную</a> · Уровень 3 — Для учёных</div>
+    <nav class="breadcrumb" aria-label="Цепочка навигации"><a href="../index.html">← На главную</a> · Уровень 3 — Для учёных</nav>
     <a class="logo" href="../index.html">MICROCEAN</a>
     <div class="logo-sub">Океан кода из миллиарда капель</div>
   </div>
 </header>
 
-<div class="container">
+<main class="container">
 
 <section id="model">
-  <h2 class="section-title">Формальная модель задачи сборки</h2>
+  <h1 class="section-title">Формальная модель задачи сборки</h1>
   <p><strong>Определение (пространство фрагментов).</strong> ℱ = {g₁, …, g<sub>N_F</sub>} — конечное множество микро-фрагментов кода. Каждый фрагмент g = (code(g), meta(g)), где code(g) — исполняемый исходный код над алфавитом Σ; meta(g) — интерфейс (сигнатура), пред-/постусловия, хеш, репутация, семантические теги, а также <strong>измеренный профиль производительности</strong> (бенчмарки по времени, памяти и трафику — часть паспорта фрагмента).</p>
   <p><strong>Определение (сборка).</strong> Сборка — подмножество S ⊆ ℱ вместе с операцией композиции ∘, склеивающей фрагменты в программу p ∈ 𝒫.</p>
   <p><strong>Постановка задачи.</strong> Дано задание T со спецификацией Spec(T). Требуется найти:</p>
@@ -200,7 +200,7 @@
   </div>
 </section>
 
-</div>
+</main>
 
 <footer class="site">
   <div class="container">
