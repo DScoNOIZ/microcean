@@ -60,7 +60,7 @@
     <li><strong>Holland's schema theorem [proven].</strong> Short, low-order schemas with above-average fitness grow exponentially in number: E[m(H,t+1)] ≥ m(H,t)·(f̂(H,t)/f̄(t))·[1 − p_c·d(H)/(L−1) − o(H)·p_m]. Caveat: the inequality is about an expectation, not an equation of dynamics.</li>
     <li><strong>The Price equation [proven].</strong> w̄·Δz̄ = Cov(wᵢ, zᵢ) + E(wᵢ·Δzᵢ) — the fundamental decomposition of evolutionary dynamics.</li>
     <li><strong>Building Block Hypothesis [hypothesis]</strong> (Goldberg, 1989). A working assumption of low epistasis between well-isolated fragments; counterexamples are known (deceptive functions).</li>
-    <li><strong>Sizing per Goldberg–Deb–Clark [proven in the accepted noise model].</strong> N_s = 2cκσ²_M/d², where c is the square of the one-sided normal deviate: for a tolerable decision error α = 0.05 we have z = 1.645, c = z² ≈ 2.71. The empirical success threshold N* = 50–100 against the theoretical estimate 173 (at σ_M/d = 4): the theory leaves a margin, the empirics are more modest — the discrepancy is explainable by elitism on true fitness.</li>
+    <li><strong>Sizing per Goldberg–Deb–Clark [proven in the accepted noise model].</strong> N_s = 2cκσ²_M/d², where c is the square of the one-sided normal deviate: for a tolerable decision error α = 0.05 we have z = 1.645, c = z² ≈ 2.71. The empirical success threshold N* = 50–100 against the theoretical estimate 173.19 (at σ_M/d = 4): the theory leaves a margin, the empirics are more modest — the discrepancy is explainable by elitism on true fitness.</li>
   </ul>
   <h3>Numerical results (seed = 42, reproducible)</h3>
   <p><strong>E2 — GA convergence</strong> (L=20, M=10): success 30/30 at N ∈ {50, 100, 200}; the first hit of the optimum in generation 38.7 / 25.3 / 20.6 (mean). The budget ≈ N·G = 2·10⁴ evaluations against 10¹⁰¹ of enumeration — the GA examines a fraction ≈10⁻⁹⁷ of the space and does not work by enumeration.</p>
@@ -73,7 +73,7 @@
     <img src="../assets/charts/epistasis.svg" alt="E3: the effect of fragment coupling on correctness" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
     <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Fig. 2. The method works while the fragments are weakly coupled — hence the requirement of clean interfaces.</figcaption>
   </figure>
-  <p><strong>E4 — sizing vs empirics:</strong> at σ_M/d = 4 the theoretical GDC N_s = 173 (κ=2, c=z²≈2.71), the empirical threshold N* = 50–100; the theory is conservative by a factor of 1.7–3.5 (elitism on true fitness).</p>
+  <p><strong>E4 — sizing vs empirics:</strong> at σ_M/d = 4 the theoretical GDC N_s = 173.19 (κ=2, c=z²≈2.71), the empirical threshold N* = 50–100; the theory is conservative by a factor of 1.7–3.5 (elitism on true fitness).</p>
 </section>
 
 <section id="swarm">
@@ -128,6 +128,7 @@
   <h2 class="section-title">"Zero excess": MDL and Kolmogorov complexity</h2>
   <p>The MDL principle [Rissanen, 1978; Grünwald, 2007]: L(D) = min_H [L(H) + L(D|H)] — a formalization of Occam's razor. The Kolmogorov complexity K(x) is <strong>uncomputable</strong>; any practical minimization is an approximation.</p>
   <p><strong>E10 (a):</strong> duplicate dead fragments have almost no effect on the zlib size (159 → 265 with k: 0 → 200); unique dead fragments grow both the raw and the zlib metric. <strong>(b):</strong> a GA with an MDL penalty shortens the assembly by a factor of 2.5 (150.9 → 60.9) while preserving correctness 1.0. <strong>(c):</strong> the Pearson correlation of the zlib length with correctness ≈ −0.04 — compression captures the structure of the content, not the "neededness"; the boundary of the MDL heuristic is fixed.</p>
+  <p class="dim">Reference (publication fact-check): packages 50.5% / dependencies 50.6%; ASCII token ranges — 25,000-50,000 / 96-97% / 60-80% / 200-500 / ~80%.</p>
   <figure style="margin:18px 0;">
     <img src="../assets/charts/mdl.svg" alt="E10: the assembly length with and without the MDL penalty" style="width:100%;max-width:720px;display:block;margin:0 auto;border-radius:12px;border:1px solid var(--border);">
     <figcaption style="text-align:center;color:var(--text-dim);font-size:0.85rem;margin-top:8px;">Fig. 6. The "zero excess" principle: an assembly 2.5 times shorter with no loss of correctness.</figcaption>
