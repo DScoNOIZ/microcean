@@ -1,7 +1,7 @@
 # FC-B — fact-check `ru/specialistam.html` + `ru/filosofiya.html`
 
 Agent B, MICROCEAN convergence project. Site state: commit 442a19f. Read-only check; no html edits.
-Sources of truth abbreviated: **PUB** = `~/.hermes/knowledge-base/wikis/main/raw/p2p-code-networks-research/MICROCEAN-publication-RU-2026-08-11.md`; **BR** = `.../brand-report-2026-08-11.md`; **CON** = `~/.hermes/knowledge-base/wikis/main/concepts/p2p-code-networks.md`; **LEGAL** = `~/.hermes/kanban/boards/research-institute/attachments/t_71db559f/LEGAL-RISK-REPORT.md`. Web evidence live-checked 2026-10-22 via searxng.
+Sources of truth abbreviated: **PUB** = canonical publication text; **BR** = brand report (concept working materials); **CON** = concept wiki notes; **LEGAL** = internal legal-risk verdict. Web evidence live-checked 2026-10-22 via searxng.
 
 ## Prior flags from R3 critic (M2, M3) — checked on MY pages
 

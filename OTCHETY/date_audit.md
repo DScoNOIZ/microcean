@@ -3,8 +3,7 @@
 **Date:** 2026-10-23
 **Scope:** `index.html`, `ru/*.html` (4), `en/*.html` (5), site metadata.
 **Trigger:** operator-caught defect. Pages presented 2026-08-11 as the public
-publication date. 2026-08-11 is the internal fixation date (Hermes wiki /
-kanban Research Institute materials). Public disclosure began 2026-10-22 with
+publication date. 2026-08-11 is the internal fixation date (the concept's working materials). Public disclosure began 2026-10-22 with
 the public GitHub repository `https://github.com/DScoNOIZ/microcean`; its
 commit history is the verifiable public evidence.
 

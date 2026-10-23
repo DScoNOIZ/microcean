@@ -23,17 +23,17 @@ replace with impersonal wording ("рабочие материалы концеп
 | 4 | en/index.html:198 | "recorded internally on 2026-08-11" | CONFIDENTIAL | → "recorded on 2026-08-11 in the concept's working materials" |
 | 5 | ru/filosofiya.html:91 | «во внутренних материалах исследовательского института» | CONFIDENTIAL | → «в рабочих материалах концепции» |
 | 6 | en/philosophy.html:91 | "recorded internally on 2026-08-11" | CONFIDENTIAL | → "recorded on 2026-08-11 in the concept's working materials" |
-| 7 | ru/uchenym.html:153 | «позиции 41–47 — внутренние артефакты Research Institute» | CONFIDENTIAL (sweep find, beyond fix list) | → «рабочие материалы концепции» |
-| 8 | en/scientists.html:153 | "entries 41–47 are internal artifacts of the Research Institute" | CONFIDENTIAL (sweep find) | → "the concept's working materials" |
-| 9 | research/report.md:4 | «Исполнитель: data_analyst (Research Institute, канал R1 → R2)» | CONFIDENTIAL (repo file is public) | → «data_analyst (рабочие материалы концепции)» |
-| 10 | research/report.md:5 | «(R1, t_29de48c0)» internal artifact id | CONFIDENTIAL (sweep find) | → «(R1)» |
+| 7 | ru/uchenym.html:153 | internal institute-artifact wording entries 41–47 (verbatim quote scrubbed by 2026-10-23 round-2 directive) | CONFIDENTIAL (sweep find, beyond fix list) | → «рабочие материалы концепции» |
+| 8 | en/scientists.html:153 | entries 41–47 "internal institute artifacts" wording (verbatim scrubbed by round-2 directive) | CONFIDENTIAL (sweep find) | → "the concept's working materials" |
+| 9 | research/report.md:4 | executor attributed to internal institute channel (verbatim scrubbed by round-2 directive) | CONFIDENTIAL (repo file is public) | → «data_analyst (рабочие материалы концепции)» |
+| 10 | research/report.md:5 | «(R1, internal artifact id)» internal artifact id | CONFIDENTIAL (sweep find) | → «(R1)» |
 | L1 | index.html:198 "сохраняется за автором" / «Автор публикует идею и не управляет никакой инфраструктурой: не оператор, не бенефициар, не учредитель» (en mirror) | LEGAL-IDENTITY | kept (CC0 required; ст.1265/1267; D4/LEG-ratified author-status line) |
 | L2 | ru/filosofiya.html:91 «ни корпорация, ни сам автор» | LEGAL-IDENTITY | kept |
 | R1 | ru/vsem.html:88 / en/for-everyone.html:88 "internal programs ... lagoons" | RHETORIC | kept (hypothetical third-party case, impersonal) |
 
-Historical board docs (OTCHETY/fc_*, FACTCHECK-LEDGER.md:157) still mention
-"Research Institute" in **past entries** — left untouched per "never rewrite past
-entries" (ledger integrity). No forbidden phrase remains in any site page or
+Historical board docs (OTCHETY/fc_*, FACTCHECK-LEDGER.md) originally carried the
+forbidden phrase in past entries — scrubbed impersonally by the 2026-10-23 round-2
+privacy directive (supersedes "never rewrite past entries"). No forbidden phrase remains in any site page or
 `research/` (grep proves 0).
 
 ## 2. Before → after
@@ -42,8 +42,8 @@ entries" (ledger integrity). No forbidden phrase remains in any site page or
 |-----|-----------|----------|-----------|----------|
 | Prototype para | «…но пока только в собственных инструментах автора публикации (граф навыков…). Оценка автора — грубая прикидка…» | «…так работает одна из практик повторного использования кода. Автоматизация — заявленная цель; сроки не обещаются.» | "…in the publication author's own tooling (a graph of skills…). The author's estimate is a rough guess…" | "…one of the established practices of code reuse. Automation is the stated goal; no timelines are promised." |
 | Dating chain ×4 | «во внутренних материалах исследовательского института» / "recorded internally" | «в рабочих материалах концепции» / "in the concept's working materials" | ✓ | ✓ |
-| Institute ×2 | «внутренние артефакты Research Institute» | «рабочие материалы концепции» | "internal artifacts of the Research Institute" | "the concept's working materials" |
-| report.md | «(Research Institute, канал R1 → R2)», «(R1, t_29de48c0)» | «(рабочие материалы концепции)», «(R1)» | — | — |
+| Institute ×2 | internal institute-artifact wording (verb. scrubbed round-2) | «рабочие материалы концепции» | "internal institute artifacts" wording | "the concept's working materials" |
+| report.md | internal institute channel + artifact id (verb. scrubbed round-2) | «(рабочие материалы концепции)», «(R1)» | — | — |
 
 Two-date chain + commit-history proof preserved: both 2026-08-11 and 2026-10-22
 remain in all 4 chain sentences (index RU/EN, filosofiya RU/EN).
@@ -62,7 +62,7 @@ remain in all 4 chain sentences (index RU/EN, filosofiya RU/EN).
 
 - Checker (parse + href/src + anchors + protocol-relative + desc ≤160) over all 10 pages: `ISSUES 0`
 - Char counts: all 20 description strings ≤160 (max 155; table above); `ALL<=160`
-- Forbidden-phrase grep post-state over index.html, ru/, en/, research/, sitemap.xml, robots.txt, favicon.svg — patterns: собственных инструмент / граф навыков / skill graph / институт(institute) / Research Institute / внутренние артефакты/internal artifacts / own tooling / publication author / автора публикации / t_29de48c0 / recorded internally / inner-material phrasing → **0 hits**
+- Forbidden-phrase grep post-state over index.html, ru/, en/, research/, sitemap.xml, robots.txt, favicon.svg — patterns: собственных инструмент / граф навыков / skill graph / институт phrase / внутренние артефакты/internal artifacts / own tooling / publication author / автора публикации / internal artifact id / recorded internally / inner-material phrasing → **0 hits**
 - Date chain: grep "2026-08-11" + "2026-10-22" = 1 hit each in all 4 chain sentences, new impersonal wording confirmed by grep
 - live after push (origin/main = 3642dbf):
   - index.html HTTP 200; contains «проектная оценка» ×1, «рабочих материалах концепции» ×1, «Навигация: материалы» ×2 (meta+og); «исследовательского института» ×0

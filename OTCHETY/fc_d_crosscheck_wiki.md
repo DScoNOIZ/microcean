@@ -1,7 +1,7 @@
 # FC-D — cross-audit: site-wide technical integrity, positioning, wiki M1–M4, legal sweep
 
 Agent: FC-D (cross-auditor). Site state: commit `442a19f`, plus working ledgers A/B/C (not committed). Read-only everywhere except this file + one REPORT.md append line.
-Rule base: concept wiki `~/.hermes/knowledge-base/wikis/main/concepts/p2p-code-networks.md` (86-131 resource principles ВЕКТОР/НАБРОСОК; 518-594 status/novelty/format spec) + publication `raw/p2p-code-networks-research/MICROCEAN-publication-RU-2026-08-11.md` + LEG spread `attachments/t_71db559f/LEGAL-RISK-REPORT.md` + LEG-R3 verdict `workspaces/t_a3489374/OTCHETY/LEG-R3-verdict.md`.
+Rule base: concept wiki notes (86-131 resource principles ВЕКТОР/НАБРОСОК; 518-594 status/novelty/format spec) + canonical publication text + LEG spread (internal legal-risk documents) + LEG-R3 verdict (internal review verdict).
 Duplication policy: rows already in FC-A/FC-B/FC-C are referenced, not restated; only cross-page blind spots are ledgered here.
 
 ## D1 — Site-wide technical integrity
@@ -40,7 +40,7 @@ D2 net: **5 overshoot rows + 2 footer uniformity rows + 3 PASS bookkeeping rows.
 
 ## D3 — Wiki-side M1–M4 fix localization (proposed diffs only; wiki out of edit scope today)
 
-Duplicated file instances: LEG-R1 exists at `workspaces/t_8683cfaf/OTCHETY/`, `workspaces/t_f25ea640/OTCHETY/`, `attachments/t_8683cfaf/` (all three must be patched in lockstep). LEG-R2 exists at `workspaces/t_f25ea640/OTCHETY/` + `attachments/t_f25ea640/`. LEG-W (already carries some fixes) at `attachments/t_64130fd9/LEG-W-final-section.md`.
+Duplicated file instances: LEG-R1 (three internal copies — all must be patched in lockstep); LEG-R2 (two internal copies); LEG-W (already carries some fixes).
 
 **M1 — truncated Stepsize URL behind $85B claim** (3 copies: `LEG-R1-global-optimization.md:41`)
 - current: `- Stepsize blog (2021) — расчёт $85B — https://stepsize.com/blog/...`
@@ -53,17 +53,17 @@ Duplicated file instances: LEG-R1 exists at `workspaces/t_8683cfaf/OTCHETY/`, `w
 - current: `- Aslan et al. (2017) *Electricity Intensity of Internet Data Transmission* — PMC — https://pmc.ncbi.nlm.nih.gov/articles/PMC13070060` (and in lists at :491)
 - proposed replacement (both lines):
   `- Aslan et al. (2017) *Electricity Intensity of Internet Data Transmission* — DOI (канонический): https://doi.org/10.1111/jiec.12630`
-- status: LEG-W already fixed (`attachments/t_64130fd9/LEG-W-final-section.md:256` carries DOI "исправлено per LEG-R3 M2"); R2 use-site chain `LEG-R1:125-127` («Best estimate 2015 [ИЗМЕРЕНО-литература]»; «0.01–0.06») stays as-is — figure itself external-verified (FC-C: Wiley abstract "0.06 kWh/GB for 2015", + arXiv:2506.23866 attribution).
+- status: LEG-W already fixed (final-section copy :256 carries DOI "исправлено per LEG-R3 M2"); R2 use-site chain `LEG-R1:125-127` («Best estimate 2015 [ИЗМЕРЕНО-литература]»; «0.01–0.06») stays as-is — figure itself external-verified (FC-C: Wiley abstract "0.06 kWh/GB for 2015", + arXiv:2506.23866 attribution).
 - evidence: LEG-R3-verdict.md:168-171.
 
 **M3 — 50.5% (packages) vs 50.6% (dependencies) denominators**
 - source-of-correct-split: `LEG-R1-global-optimization.md:143` «**50.5% пакетов**…; **50.6% из 50 488 зависимостей**…» — keep.
-- `LEG-R2-global-optimization-calcs.md:65` (2 copies: workspaces+t_f25ea640, attachments) current: `DepPrune (Jiang et al., ICSE 2023): **50.6% npm-пакетов содержат ≥1 bloated dependency**, из них 51.3% — неиспользуемые прямые зависимости.`
+- `LEG-R2-global-optimization-calcs.md:65` (internal doc, 2 copies) current: `DepPrune (Jiang et al., ICSE 2023): **50.6% npm-пакетов содержат ≥1 bloated dependency**, из них 51.3% — неиспользуемые прямые зависимости.`
   replacement: `DepPrune (Jiang et al., ICSE 2023): **50.5% npm-пакетов содержат ≥1 bloated dependency**; из 50 488 проанализированных зависимостей **50.6%** — bloated (13.8% прямых, 51.3% транзитивных).`
 - `LEG-R2…:34` current «**DepPrune 2023** (50.6% пакетов содержат bloated deps…)» → `(50.5% пакетов содержат ≥1 bloated dep; 50.6% зависимостей bloated)`
 - `LEG-R2…:17` TL;DR cell «[ИЗМЕРЕНО литература npm 50.6% bloated]» → `[ИЗМЕРЕНО литература npm: 50.5% пакетов / 50.6% зависимостей bloated]`
 - `LEG-R2…:297` assumptions row «npm bloated | **50.6% пакетов**» → `npm bloated | 50.5% пакетов; 50.6% зависимостей`
-- code: `workspaces/t_f25ea640/leg_exp/e_l1_bloat.py:174` + `results/e_l1_summary.json:21` key `depprune_2023_any_bloated_pct: 50.6` → rename/split into `depprune_2023_packages_pct: 50.5`, `depprune_2023_dependencies_pct: 50.6` (script comment :171 similar).
+- code: internal experiment script `e_l1_bloat.py:174` + internal summary report key `depprune_2023_any_bloated_pct: 50.6` → rename/split into `depprune_2023_packages_pct: 50.5`, `depprune_2023_dependencies_pct: 50.6` (script comment :171 similar).
 - evidence: LEG-R3-verdict.md:173-176; key clarification LEG-R3-verdict.md:205.
 
 **M4 — 11.3× headline needs [МОДЕЛЬ-оценка, 95% CI 7.8–20.7×] + denominator disclaimer**
@@ -76,7 +76,7 @@ Duplicated file instances: LEG-R1 exists at `workspaces/t_8683cfaf/OTCHETY/`, `w
 
 D3 totals: **M1 ×3 file:line, M2 ×2 file:line (×3 copies), M3 ×5 file:line (+2 code), M4 ×4 file:line. All four findings confirmed present in wiki/LEG layer; zero of them leak onto site pages (matches FC-B/FC-C absence checks).**
 
-## D4 — Legal/public-domain consistency sweep (per t_71db559f LEGAL-RISK-REPORT.md)
+## D4 — Legal/public-domain consistency sweep (per internal legal-risk verdict)
 
 | loc | issue | verdict | proposed fix | evidence |
 |---|---|---|---|---|

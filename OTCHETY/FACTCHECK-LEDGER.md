@@ -154,7 +154,7 @@ Honest UNVERIFIED leftovers: the 7 items in §3.
 | :66 «консервативна в 1,6–3,2 раза» | IMPRECISE | F3 | 1,7–3,5 (recalculated for c=2.71/173.2; ledger's alternative 1,3–2,5 belonged to the rejected c=1.96/125.44 parameterization) |
 | :78 E9 timing «0,05 s» | VERIFIED (nondeterministic wall-clock, 0.04 measured) | — | unchanged; note kept (residual R5) |
 | :143a «все 10 серий... коды открыты» | VERIFIED | — | unchanged |
-| :143b «все источники (47 позиций) приведены» | IMPRECISE (list not on site) | F3 | reworded + verbatim embed of external sources 1–40 (41–47 internal Research Institute artifacts stay in the publication) |
+| :143b «все источники (47 позиций) приведены» | IMPRECISE (list not on site) | F3 | reworded + verbatim embed of external sources 1–40 (41–47 internal working-material artifacts stay in the publication) |
 | :158 footer (D2 uniformity) | IMPRECISE | F1 (cross) | CC0-declaration footer |
 
 ### 2.6 `research/report.md` (FC-C rows)
@@ -319,8 +319,8 @@ Source ledgers (all read in full by CONSOL; sizes as on disk):
 | OTCHETY/seo_wave2.md | 4,210 B | SEO surface wave decisions + verification |
 | OTCHETY/REPORT.md | 2,977 B | chronological ledger (fix-wave fix counts source) |
 
-- Canonical text: `~/.hermes/knowledge-base/wikis/main/raw/p2p-code-networks-research/MICROCEAN-publication-RU-2026-08-11.md`; concept wiki `concepts/p2p-code-networks.md`; LEG spread `t_71db559f/LEGAL-RISK-REPORT.md`.
-- R3 verdict path: `workspaces/t_a3489374/OTCHETY/LEG-R3-verdict.md` (M1–M4 model findings; exact CI 11.27×, 95% CI 7.75–20.67×).
+- Canonical text: concept publication, internal copy; concept wiki notes; LEG spread (internal legal-risk document).
+- R3 verdict: internal review document (M1–M4 model findings; exact CI 11.27×, 95% CI 7.75–20.67×).
 - Wiki commits executed by the WIKI wave: `bccf760` (addendum E4 sizing c=z²=2.71, N_s=173.19), `687a0c4` (LEG log entry M1–M4), `0de5002` (index Last-refreshed).
 - Site base commit: `442a19f` (init: static concept site + shared agent report board).
 - Fix waves: F1 20/20 + 5 cross rows, F2 15/15, F3 7 groups — counts as recorded in OTCHETY/REPORT.md.

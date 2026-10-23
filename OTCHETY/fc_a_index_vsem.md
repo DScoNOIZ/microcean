@@ -7,7 +7,7 @@ Verdicts: VERIFIED / IMPRECISE / FALSE / UNVERIFIABLE-RHETORIC.
 Rule: external claims need ≥2 independent sources with URLs; in-repo numeric
 claims were **executed** locally (scratch copy at `/tmp/opencode/fc_a/experiments/`,
 seed=42, numpy 2.5.2 / python 3.14.7; outputs `e{1,2,5,6,10}.stdout`).
-Canonical text: `~/.hermes/knowledge-base/wikis/main/raw/p2p-code-networks-research/MICROCEAN-publication-RU-2026-08-11.md`.
+Canonical text: concept publication, internal copy.
 Note: `research/experiments/EXP4_sizing.py` in-site is stale (c=1.96; R3 says c=2.71,
 N_s=173.2). Not on these pages; filed for the E4 owner.
 
