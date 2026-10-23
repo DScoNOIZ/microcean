@@ -29,7 +29,8 @@ Link field: path to detail file in this directory, or `-` if none.
 | WIKI | WIKI M1-M4 execution | DONE — 3 commits (bccf760, 687a0c4, 0de5002) + kanban copies (LEG-R1 x3, LEG-R2 x2, LEG-W, code/json key split, R2-REPORT addendum x2) |
 | CONSOL | CONSOLIDATION: master fact-check ledger | DONE — FACTCHECK-LEDGER.md (119 claims audited; 34/35 fully resolved = 97%; 7 residuals; ledger cross-checked against all 4 fc files) |
 | STYLE | STYLE wave3: typography/layout consistency | DONE — style_wave3.md; 5 pages within rails, fact-sweep clean, parse/anchor 0 issues (verified by GATES) |
-| GATES | GATES: final quality gates | DONE — verdict ACCEPT; suite 0/0/0 (links/parse/tokens), EXP2/4/6/8/9/10 exit 0; fixes: uchenym footer (D2), R6 865.93; residuals R4/R6/R7 closed, R1/R2/R3 open, R5 accepted as-is; commits 928369f + docs wave |
+| GATES | GATES: final quality gates | DONE — verdict ACCEPT; suite 0/0/0 (links/parse/tokens), EXP2/4/6/8/9/10 exit 0; fixes: uchenym footer (D2), R6 865.93; residuals R4/R6/R7 closed, R1 CLOSED (real-domain pass 242ff2d), R2/R3 open, R5 accepted as-is; commits 928369f + docs wave |
+| DOMAIN-PASS | real-domain publishing pass | DONE — sitemap 10 absolute URLs w/ lastmod, canonical+og:url per page, og:image absolute, robots sitemap line; checker 0/0; live HTTP 200 x12; domain_pass.md; commit 242ff2d |
 | CONTINUOUS | CONTINUOUS: regression watch | RUNNING |
 
 ## Current session phases
@@ -37,21 +38,19 @@ Link field: path to detail file in this directory, or `-` if none.
 - BOOTSTRAP — init repo, create this board, first commit — **COMPLETE**
 - FACT-CHECK-A..D — verify site claims against research/ — **COMPLETE** (ledgers fc_a..fc_d)
 - FIXES — factual corrections after fact-check — **COMPLETE** (F1 20/20+5 cross, F2 15/15, F3 7 groups)
-- SURFACE — SEO wave2 (favicon, robots, sitemap, head meta) — **COMPLETE** (canonical/domain pass pending)
+- SURFACE — SEO wave2 (favicon, robots, sitemap, head meta) — **COMPLETE** (canonical/domain filled by DOMAIN-PASS)
 - WIKI — M1-M4 execution on wiki layer — **COMPLETE** (commits bccf760, 687a0c4, 0de5002)
 - CONSOLIDATION — master accountability ledger — **COMPLETE** (OTCHETY/FACTCHECK-LEDGER.md)
 - STYLE — typography/layout consistency pass — **COMPLETE** (style_wave3.md; GATES-verified)
 - GATES — final quality gates before convergence — **COMPLETE** (verdict ACCEPT; FACTCHECK-LEDGER.md §6)
+- DOMAIN-PASS — real-domain: sitemap + canonical + og:url/og:image — **COMPLETE** (OTCHETY/domain_pass.md)
 - CONTINUOUS — regression watch after convergence — RUNNING (wave4 EN mirror shipped + gated)
 
 ## Outstanding improvements queue (post-convergence)
 
-- Domain pass — canonical URLs + remaining sitemap host work once a domain exists
-  (sentinel EMPTY-PENDING-DOMAIN still kept in repo)
 - DOI/OTS dating — reliable long-term dating of the disclosed elements (site pages
   currently state "DOI/OTS in preparation", no DOI identifier on site by design)
 - TM-registry — wider trademark-check of the MICROCEAN name beyond the recorded
   MICROCEAN® (water purification, 1979) prior mark
 - EN mirror wiki note — flip wikis/main/projects/microcean-site.md status
   in-progress → shipped (wiki commit 2e516bd registered the page)
-- EN pages in sitemap — add en/*.html to sitemap.xml once the domain exists
