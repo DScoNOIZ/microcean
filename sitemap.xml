@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ORCHESTRATOR: fill domain before publish. Sitemap template: the production
-     domain is not set yet, so every <loc> carries the EMPTY-PENDING-DOMAIN
-     sentinel instead of a fake URL. Replace the sentinel with the real domain,
-     remove this comment, then reference the file from robots.txt. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>EMPTY-PENDING-DOMAIN/</loc>
+    <loc>https://dsconoiz.github.io/microcean/</loc>
+    <lastmod>2026-10-22</lastmod>
   </url>
   <url>
-    <loc>EMPTY-PENDING-DOMAIN/ru/vsem.html</loc>
+    <loc>https://dsconoiz.github.io/microcean/ru/vsem.html</loc>
+    <lastmod>2026-10-22</lastmod>
   </url>
   <url>
-    <loc>EMPTY-PENDING-DOMAIN/ru/specialistam.html</loc>
+    <loc>https://dsconoiz.github.io/microcean/ru/specialistam.html</loc>
+    <lastmod>2026-10-22</lastmod>
   </url>
   <url>
-    <loc>EMPTY-PENDING-DOMAIN/ru/uchenym.html</loc>
+    <loc>https://dsconoiz.github.io/microcean/ru/uchenym.html</loc>
+    <lastmod>2026-10-22</lastmod>
   </url>
   <url>
-    <loc>EMPTY-PENDING-DOMAIN/ru/filosofiya.html</loc>
+    <loc>https://dsconoiz.github.io/microcean/ru/filosofiya.html</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://dsconoiz.github.io/microcean/en/index.html</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://dsconoiz.github.io/microcean/en/for-everyone.html</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://dsconoiz.github.io/microcean/en/scientists.html</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://dsconoiz.github.io/microcean/en/specialists.html</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://dsconoiz.github.io/microcean/en/philosophy.html</loc>
+    <lastmod>2026-10-22</lastmod>
   </url>
 </urlset>

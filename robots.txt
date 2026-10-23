@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# ORCHESTRATOR: uncomment + fill production domain before publish
-# Sitemap: EMPTY-PENDING-DOMAIN/sitemap.xml
+Sitemap: https://dsconoiz.github.io/microcean/sitemap.xml
