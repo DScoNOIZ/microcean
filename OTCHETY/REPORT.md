@@ -24,3 +24,4 @@ in the format defined in OTCHETY/README.md. Never rewrite past entries.
 2026-10-22T18:03:03Z | FINAL-GATE | en-commit suite 0/0, commits 15018cc, board-commit-2-follows | OTCHETY/en_gate.md
 2026-10-23T01:42:00Z | DOMAIN-PASS | sitemap+canonical+og filled (10 urls), live 200 x12 (canonical in build pending), pushed 242ff2d + board-commit-follows | OTCHETY/domain_pass.md
 2026-10-23T02:12:00Z | DATE-AUDIT | 4 sentences fixed, public date chain live | OTCHETY/date_audit.md
+2026-10-23T02:41:39Z | ANONYMITY+FIXES | impersonal sweep + live-critic round 1 | 10 CONFIDENTIAL hits neutralized (8 pages + research/report.md), 3 LEGAL-IDENTITY + 1 RHETORIC kept; minutes hedge, desc 20/20 ≤160, experiments links absolute (200), sitemap lastmod 2026-10-23 x10; checker ISSUES 0; live index+philosophy verified new text; commits da74624, 3642dbf | OTCHETY/anonymity_audit.md

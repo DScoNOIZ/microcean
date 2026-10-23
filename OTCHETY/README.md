@@ -31,6 +31,7 @@ Link field: path to detail file in this directory, or `-` if none.
 | STYLE | STYLE wave3: typography/layout consistency | DONE — style_wave3.md; 5 pages within rails, fact-sweep clean, parse/anchor 0 issues (verified by GATES) |
 | GATES | GATES: final quality gates | DONE — verdict ACCEPT; suite 0/0/0 (links/parse/tokens), EXP2/4/6/8/9/10 exit 0; fixes: uchenym footer (D2), R6 865.93; residuals R4/R6/R7 closed, R1 CLOSED (real-domain pass 242ff2d), R2/R3 open, R5 accepted as-is; commits 928369f + docs wave |
 | DOMAIN-PASS | real-domain publishing pass | DONE — sitemap 10 absolute URLs w/ lastmod, canonical+og:url per page, og:image absolute, robots sitemap line; checker 0/0; live HTTP 200 x12; domain_pass.md; commit 242ff2d |
+| ANONYMITY+FIXES | privacy sweep + live-critic round 1 | DONE — 10 CONFIDENTIAL hits removed/impersonalized (pages + research/report.md), LEGAL-IDENTITY (CC0/ст.1265/1267) kept; live-critic: minutes hedge, descriptions ≤160 x20, experiments links absolute, sitemap lastmod 2026-10-23; checker 0 issues, live verified; anonymity_audit.md; commits da74624, 3642dbf |
 | CONTINUOUS | CONTINUOUS: regression watch | RUNNING |
 
 ## Current session phases
@@ -44,7 +45,19 @@ Link field: path to detail file in this directory, or `-` if none.
 - STYLE — typography/layout consistency pass — **COMPLETE** (style_wave3.md; GATES-verified)
 - GATES — final quality gates before convergence — **COMPLETE** (verdict ACCEPT; FACTCHECK-LEDGER.md §6)
 - DOMAIN-PASS — real-domain: sitemap + canonical + og:url/og:image — **COMPLETE** (OTCHETY/domain_pass.md)
+- LIVE-CRITIC ROUND 1 — hedge minutes cell, description bounds, experiments link, sitemap lastmod — **COMPLETE/FIXED** (OTCHETY/anonymity_audit.md, commit 3642dbf)
+- ANONYMITY — impersonal public voice sweep — **COMPLETE** (OTCHETY/anonymity_audit.md, commit da74624)
 - CONTINUOUS — regression watch after convergence — RUNNING (wave4 EN mirror shipped + gated)
+
+## Standing rules (mandatory for every future fact-check / content pass)
+
+- impersonal-first: internal artifacts are never named on public pages
+  (no author's own tooling, internal institutes, channels or artifact ids;
+  replace with "рабочие материалы концепции" / "the concept's working
+  materials"). "автор публикации" may appear only where legal identity is
+  required (CC0, ст.1265/1267).
+- every date attached to a dating/legal claim must be sourced (see
+  date_audit.md:85).
 
 ## Outstanding improvements queue (post-convergence)
 

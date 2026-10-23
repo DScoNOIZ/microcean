@@ -325,3 +325,15 @@ Source ledgers (all read in full by CONSOL; sizes as on disk):
 - Site base commit: `442a19f` (init: static concept site + shared agent report board).
 - Fix waves: F1 20/20 + 5 cross rows, F2 15/15, F3 7 groups — counts as recorded in OTCHETY/REPORT.md.
 - Discrepancy reconciliation rule used throughout: deepest file wins; REPORT.md rows treated as lossy summaries (see §1.3).
+
+## 7. STANDING CHECKLIST RULE — impersonal-first (2026-10-23, ANONYMITY+FIXES)
+
+**impersonal-first: internal artifacts are never named on public pages.**
+Every fact-check / content pass sweeps public surfaces (pages + `research/`) for
+mentions of the author's internal tooling, internal institutes, internal channels
+or internal artifact ids; hits are CONFIDENTIAL and are replaced with impersonal
+wording ("рабочие материалы концепции" / "the concept's working materials").
+"автор публикации" may appear only where legal identity requires it (CC0,
+ст.1265/1267). Historical ledger rows above (e.g. :157) stay as process history
+per the never-rewrite rule. Full audit: `OTCHETY/anonymity_audit.md`; commits
+`da74624`, `3642dbf`.
