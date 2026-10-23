@@ -23,3 +23,4 @@ in the format defined in OTCHETY/README.md. Never rewrite past entries.
 2026-10-22T17:58:26Z | EN-MIRROR | en pages 5/5, checker 0 broken, numeric parity ok | OTCHETY/en_mirror.md
 2026-10-22T18:03:03Z | FINAL-GATE | en-commit suite 0/0, commits 15018cc, board-commit-2-follows | OTCHETY/en_gate.md
 2026-10-23T01:42:00Z | DOMAIN-PASS | sitemap+canonical+og filled (10 urls), live 200 x12 (canonical in build pending), pushed 242ff2d + board-commit-follows | OTCHETY/domain_pass.md
+2026-10-23T02:12:00Z | DATE-AUDIT | 4 sentences fixed, public date chain live | OTCHETY/date_audit.md
