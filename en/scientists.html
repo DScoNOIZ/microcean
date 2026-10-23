@@ -37,7 +37,7 @@
   <p><strong>Problem statement.</strong> Given a task T with the specification Spec(T). It is required to find:</p>
   <div class="formula">argmin<sub>S ⊆ ℱ</sub>&nbsp;&nbsp;Φ(S) = α·Err(S, Spec(T)) + β·cost(p(S)) + γ·incomp(S)</div>
   <p>where Err is the mismatch to the specification (failed tests), cost is the complete resource footprint of the program: size, running time, memory, network traffic, energy (an implementation of the principles of "zero excess" and resource responsibility), incomp — conflicts of interfaces; α ≫ β, γ by default. Constraints: typability of the assembly, pairwise compatibility of interfaces, a budget cost(p) ≤ B. The presence of cost in the objective function means that <strong>evolutionary selection cuts off wasteful combinations automatically</strong>: optimization is built into the mechanism of selection, rather than being a separate "when it pinches" stage.</p>
-  <p><strong>A remark on complexity.</strong> The search space is 2<sup>N_F</sup> subsets. At N_F ~ 10⁶ an exact solution by enumeration is impossible.</p>
+  <p><strong>A remark on complexity.</strong> The search space is 2<sup>N_F</sup> subsets. At N_F ~ 10⁶ an exact solution by enumeration is impossible. Granularity: plankton (micro-fragments) → schools of fish (functions/modules) → islands (packages/apps) → ecosystems (stacks) — NO rigid gradation. Torrent-for-code at the micro-level: P2P, take exactly what you need, no excess traffic.</p>
 </section>
 
 <section id="evidence">
@@ -78,7 +78,7 @@
 
 <section id="swarm">
   <h2 class="section-title">The swarm of micro-networks: ensemble bounds</h2>
-  <p>The bias–variance decomposition [Geman et al., 1992]: E[(y−f̂(x))²] = Bias² + Var + σ². For an ensemble of M models with pairwise error correlation ρ: Var → ρσ² as M→∞ — the diversity of the experts (low ρ) plays the key role. Specialization via sparse MoE [Shazeer et al., 2017, arXiv:1701.06538] — a "sparse mixture of experts".</p>
+  <p>The bias–variance decomposition [Geman et al., 1992]: E[(y−f̂(x))²] = Bias² + Var + σ². For an ensemble of M models with pairwise error correlation ρ: Var → ρσ² as M→∞ — the diversity of the experts (low ρ) plays the key role. Specialization via sparse MoE [Shazeer et al., 2017, arXiv:1701.06538] — a "sparse mixture of experts". Agents as the new assembly layer: they assemble the program from distributed fragments and modules; current human tools give neither a unified database, nor a convenient torrent-like interface, nor homogeneous practices — which is why this environment is morally obsolete for machine labor.</p>
   <p><strong>The bound [plausible]:</strong> there is no theorem of universal superiority of the swarm (NFL); the gain is achieved in latency, fault tolerance and transfer-efficiency; the comparison "swarm vs one big model" is an empirical question.</p>
 </section>
 
@@ -145,7 +145,7 @@
       <tr><td>Halting / Rice</td><td>Turing, 1936; Rice, 1953</td><td>Impossible</td><td>Absolute error-freeness is unattainable; what is attainable are tests on finite sets and verification of bounded properties</td></tr>
     </tbody>
   </table>
-  <p>Additional caveats: the schema theorem ≠ a guarantee of GA convergence; hashgraph aBFT — a protocol property under its assumptions; the Tangle — probabilistic consensus; the quantum perspectives of the concept lie outside the current mathematical base and are marked as a direction.</p>
+  <p>Additional caveats: the schema theorem ≠ a guarantee of GA convergence; hashgraph aBFT — a protocol property under its assumptions; the Tangle — probabilistic consensus; the quantum perspectives of the concept lie outside the current mathematical base and are marked as a direction. Harmony: atoms, not bricks; everything flows like currents; no bottlenecks, rough seams, brittle stitches. This is not a fragmentary, heterogeneous, poorly connected system — but one environment forming a harmonious whole: everything interconnected, everything flowing, no narrow passages, bottlenecks, absurd pile-ups, brittle stitches.</p>
 </section>
 
 <section id="sources">
