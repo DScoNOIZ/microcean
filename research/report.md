@@ -1,8 +1,8 @@
 # R2: Вычисления и симуляции — P2P Code Networks (Plastic Mutating Software)
 
 - **Дата:** 2026-08-11
-- **Исполнитель:** data_analyst (Research Institute, канал R1 → R2)
-- **Стадия:** R2 — численные эксперименты E1–E10 по плану `10-r2-computation-plan.md` (R1, t_29de48c0)
+- **Исполнитель:** data_analyst (рабочие материалы концепции)
+- **Стадия:** R2 — численные эксперименты E1–E10 по плану `10-r2-computation-plan.md` (R1)
 - **Окружение:** Python 3.13.14, numpy 2.4.3, matplotlib 3.11.1 (Agg), zlib (stdlib) — исходные вычисления (2026-08-11); независимое повторное воспроизведение — Python 3.14.7 / numpy 2.5.2 (2026-10-22), см. §3.
 - **Воспроизводимость:** все симуляции — `numpy.random.default_rng(seed)`, master-seed **42**;
   семена прогонов: `master.integers(0, 2^31, size=RUNS)`. Формулы — в комментариях скриптов.
