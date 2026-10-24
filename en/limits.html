@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MICROCEAN — Honest Limits & Risks</title>
+<meta name="description" content="Honest limits of Microcean: what is mathematically impossible, where heuristics apply, Sybil/fragment-garbage/legal-gap risks, and how the architecture mitigates them.">
+<meta name="theme-color" content="#0a1622">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MICROCEAN — Honest Limits & Risks">
+<meta property="og:description" content="Honest limits of Microcean: what is mathematically impossible, where heuristics apply, Sybil/fragment-garbage/legal-gap risks, and how the architecture mitigates them.">
+<meta property="og:site_name" content="MICROCEAN">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://dsconoiz.github.io/microcean/favicon.svg">
+<meta property="og:url" content="https://dsconoiz.github.io/microcean/en/limits.html">
+<link rel="canonical" href="https://dsconoiz.github.io/microcean/en/limits.html">
+<meta name="twitter:card" content="summary">
+</head>
+<body>
+
+<header class="site">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">← To the home page</a> · Honest Limits · <a href="../ru/limits.html">RU</a></nav>
+    <a class="logo" href="index.html">MICROCEAN</a>
+    <div class="logo-sub">One ocean from a billion drops</div>
+  </div>
+</header>
+
+<main class="container">
+
+<section id="mathematical-barriers">
+  <h1 class="section-title">Mathematical Barriers (Unavoidable)</h1>
+  <p>These limits are not implementation defects — they are theorems. No engineering can bypass them; Microcean acknowledges them and designs around them.</p>
+  <table class="data">
+    <thead><tr><th>Barrier</th><th>Result</th><th>Status</th><th>Consequence for the concept</th></tr></thead>
+    <tbody>
+      <tr><td>Kolmogorov complexity K(x)</td><td>uncomputable (Solomonoff 1964; Li & Vitányi 2008)</td><td>Impossible</td><td>"Zero excess" is a heuristic (MDL), not a mathematical optimum. Absolute assembly minimality is unattainable.</td></tr>
+      <tr><td>No Free Lunch (Wolpert & Macready 1997)</td><td>no universal optimizer for all tasks</td><td>Impossible</td><td>Microcean's strength is on the class of tasks with structure (low epistasis, clean interfaces).</td></tr>
+      <tr><td>Amdahl's Law (Amdahl 1967)</td><td>speedup bounded by sequential fraction</td><td>Proven</td><td>Parallelism of assembly limited by coordination/verification (E8: p=0.99 → S(1024)=91.2).</td></tr>
+      <tr><td>Halting Problem / Rice's Theorem</td><td>absolute error-freeness unattainable</td><td>Impossible</td><td>Attainable are tests on finite sets and verification of bounded properties (CEGIS soundness).</td></tr>
+      <tr><td>Schema theorem ≠ GA convergence guarantee</td><td>expectation of schema growth ≠ dynamics equation</td><td>Caveat</td><td>Evolutionary search may stall; elitism and restarts mitigate but do not eliminate.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="heuristic-zones">
+  <h2 class="section-title">Heuristic Zones (Works, Not Fully Proven)</h2>
+  <table class="data">
+    <thead><tr><th>Area</th><th>What is used</th><th>Where it may fail</th><th>Architectural mitigation</th></tr></thead>
+    <tbody>
+      <tr><td>Fragment selection</td><td>MDL penalty + evolutionary search (E10: 2.5× shrinkage at correctness 1.0)</td><td>MDL captures structure, not "neededness" (zlib/correctness correlation ≈ −0.04)</td><td>Objective function includes cost (resource footprint); efficiency tests equal to correctness tests.</td></tr>
+      <tr><td>Population sizing</td><td>GDC formula N_s = 2cκσ²_M/d² (theoretical 173.19 at σ_M/d=4)</td><td>Empirics more modest: N* = 50–100 (factor 1.7–3.5)</td><td>Elitism on true fitness explains gap; adaptive parameter tuning.</td></tr>
+      <tr><td>Fragment epistasis</td><td>Clean interfaces requirement (λ ≤ 0.3 → correctness 1.0; λ = 0.7 → 0.325)</td><td>Real libraries often have hidden couplings</td><td>Interface compatibility checks (incomp in objective); sandboxed execution.</td></tr>
+      <tr><td>CRDT for queue-of-rights</td><td>Join-semilattice (E7: 10000/10000 checks)</td><td>Rights semantics more complex than GCounter/GSet</td><td>ORSet for multi-author; operational transformation on rights conflicts.</td></tr>
+      <tr><td>Hashgraph aBFT / Tangle</td><td>Protocol properties under their assumptions</td><td>Network synchrony / probabilistic finality</td><td>Consensus parameters tunable per lagoon; open ocean uses PBFT/Raft.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="systemic-risks">
+  <h2 class="section-title">Systemic Risks (Real, Mitigable)</h2>
+  <table class="data">
+    <thead><tr><th>Risk</th><th>Essence</th><th>Likelihood / Impact</th><th>Architectural Mitigation</th></tr></thead>
+    <tbody>
+      <tr><td>Sybil attack on reputation</td><td>Attacker spawns thousands of fake nodes, builds reputation, injects malicious fragments</td><td>High / Critical</td><td>Douceur 2002: impossible without external identity. Mitigation: (1) PoW/PoS at ocean entry; (2) Economic stake on fragment correctness; (3) Reputation on citation graph, not on nodes.</td></tr>
+      <tr><td>Fragment garbage flood</td><td>Ocean fills with millions of low-quality/duplicate/malicious fragments; search slows, reputation dilutes</td><td>Medium / High</td><td>(1) Economic cost to publish fragment (stake); (2) Auto-eviction of zero-utility fragments (E10 MDL pressure); (3) Lagoons as filters; (4) Citation graph — only actually used fragments accrue weight.</td></tr>
+      <tr><td>Verifier races</td><td>Different verifiers give contradictory verdicts on same fragment; consensus fails</td><td>Medium / Medium</td><td>Defined reference test suite; PBFT consensus on verification results; appeal via re-verification.</td></tr>
+      <tr><td>Legal uncertainty of rights</td><td>Fragment author vs. assembler vs. user — who is liable for harm? Patent minefield.</td><td>High / High</td><td>(1) CC0 + defensive prior art (publication 2026-08-11/10-22); (2) Queue-of-rights: immutable rights history in CRDT; (3) Lagoons — full isolation for regulated sectors; (4) Concept author not operator/beneficiary.</td></tr>
+      <tr><td>Ego-cycle of over-fragmentation</td><td>System incentivises splitting to absurd micro-fragments (3-line functions); overhead exceeds gain</td><td>Low / Medium</td><td>MDL penalty in objective (cost); minimum economic quantum of publication; cost/benefit analysis at orchestrator level.</td></tr>
+      <tr><td>Centralization via convenience</td><td>Convenient clients/indexes become de-facto center (like GitHub for git)</td><td>Medium / High</td><td>Open protocol; multiple clients; lagoons run autonomously; no API keys, no protocol-level rate limits.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="what-we-dont-promise">
+  <h2 class="section-title">What Microcean Does NOT Promise</h2>
+  <ul class="list">
+    <li>A universal assembler for "any program" — only "a wide class of tasks with structure" (No Free Lunch).</li>
+    <li>Absolute code minimality — only heuristic shrinkage (K(x) uncomputable).</li>
+    <li>Frictionless parallelism — Amdahl's law sets the ceiling (E8: 91.2× at 1024 cores).</li>
+    <li>Guaranteed evolutionary convergence — schema theorem gives expectation, not determinism.</li>
+    <li>Sybil immunity without economic stakes — theoretical lower bound (Douceur 2002).</li>
+    <li>Legal invulnerability — defensive prior art protects what is disclosed, but patents on unrelated improvements remain possible.</li>
+    <li>Immunity to "fragment garbage" without economic incentives — stakes and MDL pressure required.</li>
+  </ul>
+</section>
+
+<section id="next">
+  <div class="level-links">
+    <span class="lbl">Other sections:</span>
+    <a href="index.html">← To the home page</a>
+    <a href="philosophy.html">Philosophy of the concept</a>
+    <a href="scientists.html">For Scientists (mathematics, experiments)</a>
+    <a href="specialists.html">For Specialists (architecture, technologies)</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="site">
+  <div class="container">
+    <div class="slogan">"One ocean from a billion drops"</div>
+    <div>MICROCEAN · the concept is published openly · declared common heritage (CC0) · 2026</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('section').forEach(s => { s.style.opacity='0'; s.style.transform='translateY(14px)'; s.style.transition='opacity .6s ease, transform .6s ease'; io.observe(s); });
+</script>
+<style> section.visible { opacity: 1 !important; transform: none !important; } </style>
+</body>
+</html>
